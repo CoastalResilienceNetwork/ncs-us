@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Mapping with D3</title>
+	<meta name="viewport" content="width=device-width" />
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" 
+			integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" 
+			crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  			integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  			crossorigin="anonymous"></script>
+	<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+	<script src="https://d3js.org/topojson.v2.min.js"></script>
+	<script src="https://d3js.org/d3-queue.v2.min.js"></script>
+	<script src="js/geostats/geostats.min.js"></script>
+	<script src="js/map.js"></script>
+</head>
+<body>
+	<div class="main-wrap">
+		<h1>NCS Climate Mitigation</h1>
+		<div style="display:flex;">
+			<div id="usNumWrap">
+				<div id="mitPotWrap">
+					<div style="text-align:center;">
+						<div id="mitPotNum">299</div>
+						<div class="smallLabel">Mt CO<sub>2</sub>e per year</div>
+					</div>
+					<div style="text-align:right; margin-top:-15px">
+						<div class="bigLabel">mitigation potential</div>
+						<div class="smallLabel">(ex Hawaii & Puerto Rico)</div>
+					</div>	
+				</div>	
+				<div id="netEmWrap">
+					<div style="display:flex; align-items:center;">
+						<div class="netEmNum">6,870</div>
+						<div class="bigLabel">2014 Emissions</div>
+					</div>
+					<div style="display:flex; align-items:center;">
+						<div class="netEmNum">2,043</div>
+						<div class="bigLabel">NDC Target</div>
+					</div>
+					<div class="smallLabel">Mt CO<sub>2</sub>e per year</div>
+				</div>
+			</div>	
+			<div>
+				<h2>Climate Alliance States</h2>
+				<table id="emMitTbl">
+					<thead>
+						<tr>
+							<th>State</th>
+							<th style="text-align:center;">NCS Mitigation<br>(Mt CO<sub>2</sub> per year)</th>
+							<th style="text-align:center;">Area Available<br>(million acres)</th>
+				    	</tr>
+					</thead>
+					<tbody>
+				    	<tr>
+							<td>New York</td>
+							<td>170</td>
+							<td>37</td>
+						</tr>
+						<tr>
+							<td>Virginia</td>
+							<td>104</td>
+							<td>23</td>
+						</tr>
+						<tr>
+							<td>Minnesota</td>
+							<td>95</td>
+							<td>21</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="usMap">		
+			</div>
+		</div>
+		<h2>Mitigation Pathways</h2>
+		<div class="btm-graph-wrap">	
+			<div class="check-slide-group">	
+				<div class="check-slide-wrap">
+					<div class="slider-container">
+						<div id="refor_" class="slider"></div>
+					</div>
+					<div class="form-component">
+						<input checked type="checkbox" id="cb0" name="cb"><div class="check"></div>
+					</div>
+					<div style="position:relative">
+						<label class="check-label" for="cb0">Reforestation Potential</label>
+					</div>	
+				</div>
+				<div class="check-slide-wrap">
+					<div class="slider-container">
+						<div id="defor_" class="slider"></div>
+					</div>
+					<div class="form-component">
+						<input checked type="checkbox" id="cb1" name="cb"><div class="check"></div>
+					</div>
+					<div style="position:relative">
+						<label class="check-label" for="cb1">Avoided Forest Conversion</label>
+					</div>	
+				</div>
+				<div class="check-slide-wrap">
+					<div class="slider-container">
+						<div id="ifm_" class="slider"></div>
+					</div>
+					<div class="form-component">
+						<input checked type="checkbox" id="cb2" name="cb"><div class="check"></div>
+					</div>
+					<div style="position:relative">
+						<label class="check-label" for="cb2">Improved Forest Management</label>
+					</div>
+				</div>
+				<div class="check-slide-wrap">
+					<div class="slider-container">
+						<div id="fire_" class="slider"></div>
+					</div>
+					<div class="form-component">
+						<input checked type="checkbox" id="cb3" name="cb"><div class="check"></div>
+					</div>
+					<div style="position:relative">
+						<label class="check-label" for="cb3">Fire Management</label>
+					</div>
+				</div>
+				<div class="check-slide-wrap">
+					<div class="slider-container">
+						<div id="urban_" class="slider"></div>
+					</div>
+					<div class="form-component">
+						<input checked type="checkbox" id="cb4" name="cb"><div class="check"></div>
+					</div>
+					<div style="position:relative">
+						<label class="check-label" for="cb4">Urban Reforestation</label>
+					</div>
+				</div>
+				<div class="check-slide-wrap">
+					<div class="slider-container">
+						<div id="cov_crop_" class="slider"></div>
+					</div>
+					<div class="form-component">
+						<input checked type="checkbox" id="cb5" name="cb"><div class="check"></div>
+					</div>
+					<div style="position:relative">
+						<label class="check-label" for="cb5">Cover Crops</label>
+					</div>
+				</div>
+				<div class="check-slide-wrap">
+					<div class="slider-container">
+						<div id="nut_mgt_" class="slider"></div>
+					</div>
+					<div class="form-component">
+						<input checked type="checkbox" id="cb6" name="cb"><div class="check"></div>
+					</div>
+					<div style="position:relative">
+						<label class="check-label" for="cb6">Cropland Nutrient Management</label>
+					</div>
+				</div>
+				<div class="check-slide-wrap">
+					<div class="slider-container">
+						<div id="manure_" class="slider"></div>
+					</div>
+					<div class="form-component">
+						<input checked type="checkbox" id="cb7" name="cb"><div class="check"></div>
+					</div>
+					<div style="position:relative">
+						<label class="check-label" for="cb7">Improved Manure Management</label>
+					</div>
+				</div>
+				<div class="check-slide-wrap">
+					<div class="slider-container">
+						<div id="grass_res_" class="slider"></div>
+					</div>
+					<div class="form-component">
+						<input checked type="checkbox" id="cb8" name="cb"><div class="check"></div>
+					</div>
+					<div style="position:relative">
+						<label class="check-label" for="cb8">Grassland Restoration</label>
+					</div>
+				</div>
+				<div class="check-slide-wrap">
+					<div class="slider-container">
+						<div id="grass_con_" class="slider"></div>
+					</div>
+					<div class="form-component">
+						<input checked type="checkbox" id="cb9" name="cb"><div class="check"></div>
+					</div>
+					<div style="position:relative">
+						<label class="check-label" for="cb9">Avoided Grassland Conversion</label>
+					</div>
+				</div>
+				<div class="check-slide-wrap">
+					<div class="slider-container">
+						<div id="tidal_" class="slider"></div>
+					</div>
+					<div class="form-component">
+						<input checked type="checkbox" id="cb10" name="cb"><div class="check"></div>
+					</div>
+					<div style="position:relative">
+						<label class="check-label" for="cb10">Tidal Wetland Restoration</label>
+					</div>
+				</div>
+			</div>	
+			<div class="graph-border">
+				<div class="graph-hash">
+					<div class="graph-label" style="margin-right:-25px; margin-top:-12px;">Max</div>
+				</div>
+				<div class="graph-hash">
+					<div class="graph-label" style="margin-right:-50px;">$100/ton</div>
+				</div>
+				<div class="graph-hash"></div>
+				<div class="graph-hash"></div>
+				<div class="graph-hash"></div>
+				<div class="graph-hash"></div>
+				<div class="graph-hash">
+					<div class="graph-label" style="margin-right:-43px;">$50/ton</div>
+				</div>
+				<div class="graph-hash"></div>
+				<div class="graph-hash"></div>
+				<div class="graph-hash"></div>
+				<div class="graph-label" style="margin-right:-43px;">$10/ton</div>
+			</div>
+		</div>	
+	</div>	
+</body>
+</html>
