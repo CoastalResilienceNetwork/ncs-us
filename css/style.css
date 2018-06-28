@@ -32,17 +32,17 @@ body {
     margin-top:10px; margin-left:120px; display:flex;
 }
 #stLegText{
-    position:relative; top:26px; left:-37px; width:74px; text-align:center;
+    position:relative; top:26px; left:-58px; width:110px; text-align:center;
 }
 #stMapLeg{
-    width:280px; height:14px; position:relative; margin-left:10px; margin-right:10px;
+    width:280px; height:12px; position:relative; margin-left:4px; margin-right:4px; border:1pt solid #999;
     background:linear-gradient(to right, #d9f0a3 0, #d9f0a3 20%, #addd8e 20%, #addd8e 40%, #78c679 40%, #78c679 60%, #31a354 60%, #31a354 80%, #006837 80%, #006837 100%);
 }
 .stStats{
     display:flex; align-items:center; 
 }
 #stMapLegBar{
-    border-left:2pt solid #000; height:22px; position:relative; top:-4px;
+    border-left:2pt solid #000; height:21px; position:relative; top:-4px;
 }
 .stateShow{
     /*display:none;*/ display:flex;

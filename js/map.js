@@ -104,7 +104,9 @@ $(document).ready(function(){
 				.enter().append("path")
 				.attr("d", stPath)
 				.attr("class", "stStates")
-				.on("click", clicked);		
+				.on("click", clicked)	
+				.on('mouseover', mouseOver)	
+				.on('mouseout', mouseOut)	
 			
 			stSvg.call(zoom)
 		// Event listeners needed inside ready function
@@ -158,11 +160,14 @@ $(document).ready(function(){
 			var ncs_fields = [];
 			var area_fields = [];
 			var ncs_max_fields = [];
+			var ncs_dis_fields = [];
 			// Get selected field names for mitigation and area
 			$(".check-slide-group .slider").each(function(i,v){
 				if ( !$(v).slider( "option", "disabled" ) ){
 					ncs_fields.push( $(v).attr("id") + $(v).slider("value")*10 );
 					area_fields.push( $(v).attr("id") + "area" );
+				}else{
+					ncs_dis_fields.push( $(v).attr("id") + $(v).slider("value")*10 )
 				}	
 				ncs_max_fields.push( $(v).attr("id") + 110 );
 			})
@@ -172,6 +177,7 @@ $(document).ready(function(){
 			var st_vals = [];
 			var stTblData = [];
 			var stPer = 0;
+			
 			sts.forEach(function(d){
 				// Calculate mitigation values using selected fields
 				var nn = 0;
@@ -205,6 +211,11 @@ $(document).ready(function(){
 							mt = mt + num;
 						} 
 					});
+					$.each(ncs_dis_fields,function(i,v){
+						var mid = v.substring(0, v.lastIndexOf("_") + 1);
+						var lbl = $("#" + mid).parent().parent().find("label").html() 
+						st_vals.push({pathway:lbl, mit:-2222})
+					});	
 					$.each(ncs_max_fields,function(i,v){
 						if ( +d[v] > -1 ){
 							mtSum = +d[v] + mtSum;
@@ -284,22 +295,37 @@ $(document).ready(function(){
 								.append("N/A")
 							)
 							.append($('<td>')
-								.append(100)
+								.append("N/A")
 							)
 						);	
 				}else{
-					$("#stTbl").find('tbody')
-						.append($('<tr>')
-							.append($('<td>')
-								.append(v.pathway)
-							)
-							.append($('<td>')
-								.append(roundTo(v.mit/1000000,2))
-							)
-							.append($('<td>')
-								.append(100)
-							)
-						);	
+					if (v.mit == -2222){
+						$("#stTbl").find('tbody')
+							.append($('<tr style="text-decoration:line-through;">')
+								.append($('<td>')
+									.append(v.pathway)
+								)
+								.append($('<td>')
+									.append("")
+								)
+								.append($('<td>')
+									.append("")
+								)
+							);	
+					}else{
+						$("#stTbl").find('tbody')
+							.append($('<tr>')
+								.append($('<td>')
+									.append(v.pathway)
+								)
+								.append($('<td>')
+									.append(roundTo(v.mit/1000000,2))
+								)
+								.append($('<td>')
+									.append(100)
+								)
+							);	
+					}		
 				}
 					
 			})	
@@ -337,12 +363,10 @@ $(document).ready(function(){
 
 				  stSvg.transition()
 				      .duration(750)
-				      // .call(zoom.translate(translate).scale(scale).event); // not in d3 v4
 				      .call( zoom.transform, d3.zoomIdentity.translate(translate[0],translate[1]).scale(scale) );
 
 				}
 			})
-
 		}
 		function clicked(d){
 			$.each(sts,function(i,v){
@@ -350,6 +374,22 @@ $(document).ready(function(){
 					$("#chosenState").val(d.id).trigger("chosen:updated").trigger("change");
 				}
 			})
+		}
+		function mouseOver(d){
+			var cs = this;
+			$.each(sts,function(i,v){
+				if(d.id == v.state_fips && d.id != chFips){
+					d3.select(cs).style("fill", "#88b8b8");
+				}
+			})	
+		}
+		function mouseOut(d){
+			var cs = this;
+			$.each(sts,function(i,v){
+				if(d.id == v.state_fips && d.id != chFips){
+					d3.select(cs).style("fill", "#b8b8b8");
+				}
+			})	
 		}
 		function zoomed() {
 		  stG.style("stroke-width", 1.5 / d3.event.transform.k + "px");
@@ -392,7 +432,7 @@ $(document).ready(function(){
 			n = parseFloat((n * multiplicator).toFixed(11));
 			var test =(Math.round(n) / multiplicator);
 			return +(test.toFixed(2));
-		}
+	}
 })
 
 	
