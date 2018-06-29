@@ -19,11 +19,11 @@ $(document).ready(function(){
 
 	// State map setup
 		// SVG width and height for state map
-		var stWidth = 560;
+		var stWidth = 490;
 		var stHeight = 330;
 	   	// National map project, scale, and centering
 		var stProjection = d3.geoAlbers()
-			.scale(700)
+			.scale(670)
 			.translate([stWidth / 2, stHeight / 2]);
 		// Set up natinonal map path    
 		var stPath = d3.geoPath()
@@ -147,7 +147,7 @@ $(document).ready(function(){
 					$(".trans").css("opacity","100");
 					updatePage();
 					var selst = $("#chosenState option:selected").text() 
-					$("#stLegText").html("<b>" + selst + "</b>" + "'s<br>NCS Potential")
+					$("#stLegText").html("<b>" + selst + "</b>" + "'s Selected<br>NCS Potential")
 				})
 			$.each(sts,function(i,v){
 				var row = "<option value='" + v.state_fips + "'>" + v.state_name +"</option>"
@@ -165,7 +165,7 @@ $(document).ready(function(){
 			$(".check-slide-group .slider").each(function(i,v){
 				if ( !$(v).slider( "option", "disabled" ) ){
 					ncs_fields.push( $(v).attr("id") + $(v).slider("value")*10 );
-					area_fields.push( $(v).attr("id") + "area" );
+					area_fields.push( $(v).attr("id") + "area_" + $(v).slider("value")*10 );
 				}else{
 					ncs_dis_fields.push( $(v).attr("id") + $(v).slider("value")*10 )
 				}	
@@ -204,8 +204,9 @@ $(document).ready(function(){
 					var mtSum = 0;
 					$.each(ncs_fields,function(i,v){
 						var mid = v.substring(0, v.lastIndexOf("_") + 1);
+						var ar = mid + "area_" + v.split("_").pop();
 						var lbl = $("#" + mid).parent().parent().find("label").html() 
-						st_vals.push({pathway:lbl, mit:+d[v]})
+						st_vals.push({pathway:lbl, mit:+d[v], area:+d[ar]})
 						var num = +d[v]
 						if ( num > -1 ){
 							mt = mt + num;
@@ -214,7 +215,7 @@ $(document).ready(function(){
 					$.each(ncs_dis_fields,function(i,v){
 						var mid = v.substring(0, v.lastIndexOf("_") + 1);
 						var lbl = $("#" + mid).parent().parent().find("label").html() 
-						st_vals.push({pathway:lbl, mit:-2222})
+						st_vals.push({pathway:lbl, mit:-2222, area:-2222})
 					});	
 					$.each(ncs_max_fields,function(i,v){
 						if ( +d[v] > -1 ){
@@ -225,10 +226,36 @@ $(document).ready(function(){
 					$("#stMapLegBar").animate({
 					    marginLeft: stPer + '%'
 					}, 300);
+					// Update state emmissions total
+					var et = roundTo(+d["emis_tot"]/1000000,0)
+					$("#st_emis_tot").html(et)
 					// Update state mitigation number		
 					$("#stMitPotNum").html( roundTo(mt/1000000,0) )
-					$("#stLegMax").html( roundTo(mtSum/1000000,0) ) 
+					$("#stLegMax").html( "<b>" + roundTo(mtSum/1000000,0) + "</b> (Max NCS potential)" ) 
+					// Sort state table values on mitigation
 					stTblData = st_vals.sort(compareValues("mit","desc"))
+					// Update values to remove -9999 and -2222
+					$.each(stTblData,function(i,v){
+						if (v.mit == -2222){
+							v.mit = "";
+						}else{
+							if(v.mit == -9999){
+								v.mit = "N/A";
+							}else{
+								v.mit = roundTo(v.mit/1000000,2)
+							}
+						}
+						if (v.area == -2222){
+							v.area = "";
+						}else{	
+							if(v.area == -9999){
+								v.area = "N/A";
+							}else{
+								v.area = roundTo(v.area/1000000,2)
+							}
+						}	
+					})
+
 				}
 			})
 			var stColor = d3.scaleThreshold()
@@ -285,49 +312,22 @@ $(document).ready(function(){
 			// State table
 			$("#stTbl").find("tbody").empty();
 			$.each(stTblData,function(i,v){
-				if (v.mit == -9999){
+			
+				if (v.mit == ""){
 					$("#stTbl").find('tbody')
-						.append($('<tr>')
-							.append($('<td>')
-								.append(v.pathway)
-							)
-							.append($('<td>')
-								.append("N/A")
-							)
-							.append($('<td>')
-								.append("N/A")
-							)
+						.append($('<tr style="text-decoration:line-through;">')
+							.append( $('<td>').append(v.pathway) )
+							.append( $('<td>').append("") )
+							.append( $('<td>').append("") )
 						);	
 				}else{
-					if (v.mit == -2222){
-						$("#stTbl").find('tbody')
-							.append($('<tr style="text-decoration:line-through;">')
-								.append($('<td>')
-									.append(v.pathway)
-								)
-								.append($('<td>')
-									.append("")
-								)
-								.append($('<td>')
-									.append("")
-								)
-							);	
-					}else{
-						$("#stTbl").find('tbody')
-							.append($('<tr>')
-								.append($('<td>')
-									.append(v.pathway)
-								)
-								.append($('<td>')
-									.append(roundTo(v.mit/1000000,2))
-								)
-								.append($('<td>')
-									.append(100)
-								)
-							);	
-					}		
-				}
-					
+					$("#stTbl").find('tbody')
+						.append($('<tr>')
+							.append( $('<td>').append(v.pathway) )
+							.append( $('<td>').append(v.mit) )
+							.append( $('<td>').append(v.area) )
+						);	
+				}						
 			})	
 
 			// State map

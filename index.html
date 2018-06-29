@@ -78,15 +78,15 @@
 			</div>
 			<div class="stateShow trans">
 				<h2>Pathways</h2>
-				<div class="stStats" style="margin-left:230px;">
+				<div class="stStats" style="margin-left:274px;">
 					<div id="stMitPotNum" class="stNetEmNum" style="font-size:3em;">299</div>
 					<div>
 						<div class="bigLabel">Mitigation Potential</div>
 						<div class="smallLabel">(Mt CO<sub>2</sub>e per year)</div>
 					</div>
 				</div>
-				<div class="stStats">
-					<div class="stNetEmNum">358</div>
+				<div class="stStats" style="margin-left:20px;">
+					<div id="st_emis_tot" class="stNetEmNum">358</div>
 					<div>
 						<div class="bigLabel">2014 Emissions</div>
 						<div class="smallLabel">(Mt CO<sub>2</sub>e per year)</div>
@@ -179,13 +179,46 @@
 					</div>
 					<div class="check-slide-wrap">
 						<div class="slider-container">
-							<div id="cov_crop_" class="slider"></div>
+							<div id="agro_rb_" class="slider"></div>
 						</div>
 						<div class="form-component">
 							<input checked type="checkbox" id="cb5" name="cb"><div class="check"></div>
 						</div>
 						<div style="position:relative">
-							<label class="check-label" for="cb5">Cover Crops</label>
+							<label class="check-label" for="cb5">Agroforestry - Riparian</label>
+						</div>
+					</div>
+					<div class="check-slide-wrap">
+						<div class="slider-container">
+							<div id="agro_wd_" class="slider"></div>
+						</div>
+						<div class="form-component">
+							<input checked type="checkbox" id="cb6" name="cb"><div class="check"></div>
+						</div>
+						<div style="position:relative">
+							<label class="check-label" for="cb6">Agroforestry - Wind Breaks</label>
+						</div>
+					</div>
+					<div class="check-slide-wrap">
+						<div class="slider-container">
+							<div id="agro_sp_" class="slider"></div>
+						</div>
+						<div class="form-component">
+							<input checked type="checkbox" id="cb7" name="cb"><div class="check"></div>
+						</div>
+						<div style="position:relative">
+							<label class="check-label" for="cb7">Agroforestry - Silvopasture</label>
+						</div>
+					</div>
+					<div class="check-slide-wrap">
+						<div class="slider-container">
+							<div id="cov_crop_" class="slider"></div>
+						</div>
+						<div class="form-component">
+							<input checked type="checkbox" id="cb8" name="cb"><div class="check"></div>
+						</div>
+						<div style="position:relative">
+							<label class="check-label" for="cb8">Cover Crops</label>
 						</div>
 					</div>
 					<div class="check-slide-wrap">
@@ -193,10 +226,10 @@
 							<div id="nut_mgt_" class="slider"></div>
 						</div>
 						<div class="form-component">
-							<input checked type="checkbox" id="cb6" name="cb"><div class="check"></div>
+							<input checked type="checkbox" id="cb9" name="cb"><div class="check"></div>
 						</div>
 						<div style="position:relative">
-							<label class="check-label" for="cb6">Cropland Nutrient Management</label>
+							<label class="check-label" for="cb9">Cropland Nutrient Management</label>
 						</div>
 					</div>
 					<div class="check-slide-wrap">
@@ -204,10 +237,10 @@
 							<div id="manure_" class="slider"></div>
 						</div>
 						<div class="form-component">
-							<input checked type="checkbox" id="cb7" name="cb"><div class="check"></div>
+							<input checked type="checkbox" id="cb10" name="cb"><div class="check"></div>
 						</div>
 						<div style="position:relative">
-							<label class="check-label" for="cb7">Improved Manure Management</label>
+							<label class="check-label" for="cb10">Improved Manure Management</label>
 						</div>
 					</div>
 					<div class="check-slide-wrap">
@@ -215,10 +248,10 @@
 							<div id="grass_res_" class="slider"></div>
 						</div>
 						<div class="form-component">
-							<input checked type="checkbox" id="cb8" name="cb"><div class="check"></div>
+							<input checked type="checkbox" id="cb11" name="cb"><div class="check"></div>
 						</div>
 						<div style="position:relative">
-							<label class="check-label" for="cb8">Grassland Restoration</label>
+							<label class="check-label" for="cb11">Grassland Restoration</label>
 						</div>
 					</div>
 					<div class="check-slide-wrap">
@@ -226,10 +259,10 @@
 							<div id="grass_con_" class="slider"></div>
 						</div>
 						<div class="form-component">
-							<input checked type="checkbox" id="cb9" name="cb"><div class="check"></div>
+							<input checked type="checkbox" id="cb12" name="cb"><div class="check"></div>
 						</div>
 						<div style="position:relative">
-							<label class="check-label" for="cb9">Avoided Grassland Conversion</label>
+							<label class="check-label" for="cb12">Avoided Grassland Conversion</label>
 						</div>
 					</div>
 					<div class="check-slide-wrap">
@@ -237,10 +270,10 @@
 							<div id="tidal_" class="slider"></div>
 						</div>
 						<div class="form-component">
-							<input checked type="checkbox" id="cb10" name="cb"><div class="check"></div>
+							<input checked type="checkbox" id="cb13" name="cb"><div class="check"></div>
 						</div>
 						<div style="position:relative">
-							<label class="check-label" for="cb10">Tidal Wetland Restoration</label>
+							<label class="check-label" for="cb13">Tidal Wetland Restoration</label>
 						</div>
 					</div>
 				</div>	

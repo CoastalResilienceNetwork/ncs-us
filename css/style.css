@@ -26,10 +26,10 @@ body {
     font-size:2em; color:#006837; margin-right:10px;
 }
 .stNetEmNum{
-    font-size:2em; color:#006837; margin-right:10px; text-align:right; width:64px;
+    font-size:2em; color:#006837; margin-right:10px; text-align:right; 
 }
 #stMapLegWrap{
-    margin-top:10px; margin-left:120px; display:flex;
+    margin-top:10px; margin-left:65px; display:flex;
 }
 #stLegText{
     position:relative; top:26px; left:-58px; width:110px; text-align:center;
@@ -73,7 +73,7 @@ td, th {
     border:1px solid #999; padding:0.25rem; text-align:left;
 }
 #stTbl{
-    width:260px;
+    width:330px;
 }
 #naMap{
 	position:relative; 
@@ -94,7 +94,7 @@ td, th {
     position:relative; width:800px; margin-top:20px;
 }
 .graph-border{
-    position:relative; z-index:1; height:99px; top:-125px; margin:0 60px 0 0px;
+    position:relative; z-index:1; height:99px; top:-125px; margin:0 8px 0 0px;
     border-right:1px solid #ccc; border-bottom:1px solid #ccc; border-left:1px solid #ccc;
 }
 .graph-hash{
@@ -104,7 +104,7 @@ td, th {
     text-align:right; margin-top:-8px;
 }
 .check-slide-group{
-    display:flex; position:relative; z-index:500; width:750px; margin-left:21px;
+    display:flex; position:relative; z-index:500; width:798px; margin-left:19px;
 }
 .check-slide-wrap{
     flex:1;
