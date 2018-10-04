@@ -5,13 +5,17 @@ body {
     width:840px; padding:10px; margin:0 auto; position:relative;
 }
 #usNumWrap{
-    position:absolute; display:flex; top:92px; left:380px; width:436px; justify-content:space-between; align-items:flex-start;
-}
+    height:160px;
+} 
 #mitPotWrap{
-    display:flex; align-items:center;
+    align-items:center; margin-top:17px;
 }
-#mitPotNum{
-    font-size:3em; color:#006837;
+.pathway-wrap{
+    position:relative; padding:5px; border:1pt solid #bbb;
+    box-shadow:2px 2px 1px 0px rgba(204,204,204,0.75);
+}
+.mitPotNum{
+    font-size:3em; color:#006837; margin-top:17px;
 }
 .smallLabel{
     font-size:10px;
@@ -20,7 +24,7 @@ body {
     font-size:1.17em;
 }
 #netEmWrap{
-    margin-top:4px;
+    margin-top:4px; display:flex;
 }
 .netEmNum{
     font-size:2em; color:#006837; margin-right:10px;
@@ -29,23 +33,23 @@ body {
     font-size:2em; color:#006837; margin-right:10px; text-align:right; 
 }
 #stMapLegWrap{
-    margin-top:10px; margin-left:65px; display:flex;
+    margin-top:20px; display:flex;
 }
 #stLegText{
     position:relative; top:26px; left:-58px; width:110px; text-align:center;
 }
 #stMapLeg{
-    width:280px; height:12px; position:relative; margin-left:4px; margin-right:4px; border:1pt solid #999;
+    width:190px; height:12px; position:relative; margin-left:4px; margin-right:4px; border:1pt solid #999;
     background:linear-gradient(to right, #d9f0a3 0, #d9f0a3 20%, #addd8e 20%, #addd8e 40%, #78c679 40%, #78c679 60%, #31a354 60%, #31a354 80%, #006837 80%, #006837 100%);
 }
 .stStats{
     display:flex; align-items:center; 
 }
 #stMapLegBar{
-    border-left:2pt solid #000; height:21px; position:relative; top:-4px;
+    border-left:2pt solid #000; height:23px; position:relative; top:-6px;
 }
 .stateShow{
-    /*display:none;*/ display:flex;
+    display:flex;
 }
 .trans{
     opacity:0;
@@ -70,10 +74,34 @@ th{
     font-weight:bold;
 }
 td, th {
-    border:1px solid #999; padding:0.25rem; text-align:left;
+    border:1px solid #bbb; padding:0.25rem; text-align:left;
 }
+
+
+/* your existing container */
+#wrap {
+    overflow: auto;
+    height: 250px;
+    width:360px;
+    background-color: white;
+    box-shadow: 2px 2px 1px 0px rgba(204,204,204,0.75);
+}
+
+th {
+  background-color: #f3f3f3;
+}
+
+/* css for demo */
+td {
+    background-color: #fff;
+    width: 120px;
+    height: 10px;
+}
+
+
+
 #stTbl{
-    width:330px;
+    width:400px; margin:10px auto 0 auto;
 }
 #naMap{
 	position:relative; 
@@ -91,10 +119,10 @@ td, th {
     cursor:pointer;
 }
 .btm-graph-wrap{
-    position:relative; width:800px; margin-top:20px;
+    position:relative; 
 }
 .graph-border{
-    position:relative; z-index:1; height:99px; top:-125px; margin:0 8px 0 0px;
+    position:relative; z-index:1; height:99px;  margin:0 8px 0 0px;
     border-right:1px solid #ccc; border-bottom:1px solid #ccc; border-left:1px solid #ccc;
 }
 .graph-hash{
@@ -104,26 +132,51 @@ td, th {
     text-align:right; margin-top:-8px;
 }
 .check-slide-group{
-    display:flex; position:relative; z-index:500; width:798px; margin-left:19px;
+    position:relative; z-index:500; width:320px; 
 }
 .check-slide-wrap{
-    flex:1;
+    display:flex; margin-bottom:13px;
+}
+.check-slide-wrap label{
+    flex:1; font-size:12px; font-weight:bold; min-width:200px;
+}
+.check-slide-wrap label span{
+    /*margin-left:-6px;*/
+}
+.slide-label-wrap{
+    width:130px; position:absolute; top:10px; left:196px;
+}
+.slide-label{
+    display:flex;
+}
+.slide-label div{
+    flex:1; text-align:center;
+}
+.slide-label-lines{
+    display:flex;
+}
+.slide-label-lines div{
+    flex:1; border-left:1pt dashed #ccc; height:342px; margin-left:16px;
 }
 .nsc-wrap, #mitpath-wrap{
     display:none; 
 }
+#mitpath-wrap{
+    position:relative;
+}
 #stMap{
-    margin-left:16px;
+    text-align:center;
 }
 .stSvg{
     box-shadow: 2px 2px 1px 0px rgba(204,204,204,0.75); border:1pt solid #ccc; background:#f4f8f8; 
+    margin-top:40px;
 }
 #stChoWrap{
-    position:absolute; right:10px; z-index:1000;
+    position:absolute; z-index:1000; right:12px;
 }
 /*Toggle buttons*/
 #togWrap{
-    position:absolute; right:4px; top:18px;
+    position:absolute; right:4px; top:18px; z-index:100;
 }
 .toggle-btn {
     padding-left:5px; margin-bottom:10px; display:flex; font-size:15px;
@@ -145,16 +198,25 @@ td, th {
 .toggle-btn label:first-of-type {
     border-radius:5px 0 0 5px;
 }
+
+.ui-widget input:focus{
+    outline:none;
+}
+
+
 /* width of slider bar*/
 .slider{
     font-size:1.1em !important;
 }
 /* jQuery-UI overrides for the slider */
 .slider{
-    height:99px;
+    width:99px; height:5px;
 }
 .ui-widget .ui-widget{
-    font-size:1.1em;
+    /*font-size:1.1em;*/
+}
+.slider-container{
+    flex:1; margin-top:10px;
 }
 .slider-container .ui-state-default, .slider-container .ui-widget-content .ui-state-default, .slider-container .ui-widget-header .ui-state-default{
     cursor:pointer;
@@ -163,7 +225,7 @@ td, th {
     outline:none;
 }
 .slider-container .ui-state-default, .slider-container .ui-widget-content .ui-state-default, .slider-container .ui-widget-header .ui-state-default {
-    width:20px!important; height:5px!important; left:-6px; margin-bottom:-1px; box-shadow:0 1px 1px rgba(16,22,26,.1)!important;
+    /*width:20px!important; height:5px!important;*/ left:0px; margin-bottom:-1px; box-shadow:0 1px 1px rgba(16,22,26,.1)!important;
     background:linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0)) 0 no-repeat,50% no-repeat #31a354!important;
     border-color:rgba(16,22,26,.1) rgba(16,22,26,.1) rgba(16,22,26,.3)!important;
 }
@@ -182,6 +244,9 @@ td, th {
 }
 .ui-widget-header {
     background:#e4eee9;
+}
+.ui-slider .ui-slider-handle {
+    width:0.4em; height:1.6em; margin:-5px 0 0 -1px;
 } 
 /* checkbox */
 .form-component {
@@ -197,18 +262,18 @@ td, th {
     border-radius:3px; width:12px; height: 12px; box-shadow:0 1px 1px rgba(16,22,26,.1); cursor:pointer;
     background:linear-gradient(180deg,#fff,hsla(0,0%,100%,0)) 0 no-repeat,50% no-repeat #f5f8fa;
     border:1px solid; border-color: rgba(16,22,26,.1) rgba(16,22,26,.1) rgba(16,22,26,.17);
-    width:16px; height:16px; margin-right:4px; display:inline-block; position:relative; top:4px; left:-7px;
+    margin-right:4px; display:inline-block; position:relative; top:3px; left:0px;
 }
 .form-component input[type=checkbox]:checked~.check, .form-component input[type=radio]:checked~.check {
     background:#0096d6; background:linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0)) 0 no-repeat,50% no-repeat #31a354;
     border-color:rgba(16,22,26,.1) rgba(16,22,26,.1) rgba(16,22,26,.3);
 }
 .form-component input[type=checkbox]:checked~.check:after, .form-component input[type=radio]:checked~.check:after {
-    display:inline-block; width:6px; height:10px; border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg);
+    display:inline-block; width:3px; height:8px; border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg);
     content:""; position:absolute; left:4px; top:1px;
 }
 .check-label {
-    cursor:pointer; position:absolute; top:0px; transform:rotate(63deg); transform-origin:left; width:200px; font-weight:bold; font-size:12px;
+    cursor:pointer; width:210px; font-weight:bold; font-size:12px;
 }
 input[type='checkbox']:after{
     line-height:1.5em; content:''; display:inline-block; width:18px; height:18px; margin-top:-4px; margin-left:-4px;

@@ -2,11 +2,11 @@
 $(document).ready(function(){
 	// National map setup
 		// SVG width and height for national map
-		var naWidth = 580;
-		var naHeight = 380;
+		var naWidth = 500;
+		var naHeight = 300;
 	   	// National map project, scale, and centering
 		var naProjection = d3.geoAlbers()
-			.scale(750)
+			.scale(650)
 			.translate([naWidth / 2, naHeight / 2]);
 		// Set up natinonal map path    
 		var naPath = d3.geoPath()
@@ -15,15 +15,15 @@ $(document).ready(function(){
 		var naSvg = d3.select("#naMap").append("svg")
 			.attr("width", naWidth)
 			.attr("height", naHeight)
-			.style("margin-top","60px")  
+			.style("margin-left","30px")  
 
 	// State map setup
 		// SVG width and height for state map
-		var stWidth = 490;
-		var stHeight = 330;
+		var stWidth = 470;
+		var stHeight = 260;
 	   	// National map project, scale, and centering
 		var stProjection = d3.geoAlbers()
-			.scale(670)
+			.scale(560)
 			.translate([stWidth / 2, stHeight / 2]);
 		// Set up natinonal map path    
 		var stPath = d3.geoPath()
@@ -111,21 +111,31 @@ $(document).ready(function(){
 			stSvg.call(zoom)
 		// Event listeners needed inside ready function
 			// Initialize sliders
-			$( ".slider" ).slider({ orientation:"vertical", range:"min", min:1, max:11, value:11,
+			// $( ".slider" ).slider({ orientation:"horizontal", range:"min", min:1, max:11, value:11,
+		 //    	slide: function( event, ui ) { 
+		 //        	updatePage();
+		 //      	}
+		 //    });
+		 $( ".slider" ).slider({ orientation:"horizontal", range:"min", min:1, max:4, value:4,
 		    	slide: function( event, ui ) { 
 		        	updatePage();
 		      	}
 		    });
 		    // National, State, County toggle event listener
+		    var sttracker = 0;
 		    $(".toggle-btn input[name='nsc']").click(function(){
 				$(".nsc-wrap").hide();
-				$("#" + this.value).show();
+				$("." + this.value).show();
 				$("#mitpath-wrap").show();
+				if (this.value == "state" && sttracker == 0){
+					$(".pathway-wrap").css("opacity", "0")
+					sttracker = 1;
+				}
 			})
 			// Trigger inital click on toggle
 			$(".toggle-btn input[value='national']").trigger("click")
 			// Checkbox listeners
-			$(".check-slide-wrap input[type='checkbox']").click(function(){
+			$(".check-slide-wrap input").click(function(){
 				var tid = $(this).parent().parent().find(".slider").attr("id")
 				var lbl = $(this).parent().parent().find("label");
 				if (this.checked){
@@ -137,14 +147,12 @@ $(document).ready(function(){
 				}
 				updatePage();
 			}) 
-			$(".check-slide-wrap .check").click(function(){
-				var cb = $(this).parent().find("input").trigger("click");
-			})
 			// Chosen state menu
-			$("#chosenState").chosen({width:"155px", disable_search:true})
+			$("#chosenState").chosen({width:"125px", disable_search:false})
 				.change(function(c){
 					chFips = c.target.value;
 					$(".trans").css("opacity","100");
+					$(".pathway-wrap").css("opacity", "100")
 					updatePage();
 					var selst = $("#chosenState option:selected").text() 
 					$("#stLegText").html("<b>" + selst + "</b>" + "'s Selected<br>NCS Potential")
@@ -164,12 +172,12 @@ $(document).ready(function(){
 			// Get selected field names for mitigation and area
 			$(".check-slide-group .slider").each(function(i,v){
 				if ( !$(v).slider( "option", "disabled" ) ){
-					ncs_fields.push( $(v).attr("id") + $(v).slider("value")*10 );
-					area_fields.push( $(v).attr("id") + "area_" + $(v).slider("value")*10 );
+					ncs_fields.push( $(v).attr("id") + $(v).slider("value") );
+					area_fields.push( $(v).attr("id") + "area_" + $(v).slider("value") );
 				}else{
-					ncs_dis_fields.push( $(v).attr("id") + $(v).slider("value")*10 )
+					ncs_dis_fields.push( $(v).attr("id") + $(v).slider("value") )
 				}	
-				ncs_max_fields.push( $(v).attr("id") + 110 );
+				ncs_max_fields.push( $(v).attr("id") + 4 );
 			})
 			var tbl_vals = [];
 			var map_vals = {};
@@ -177,7 +185,6 @@ $(document).ready(function(){
 			var st_vals = [];
 			var stTblData = [];
 			var stPer = 0;
-			
 			sts.forEach(function(d){
 				// Calculate mitigation values using selected fields
 				var nn = 0;
@@ -205,7 +212,7 @@ $(document).ready(function(){
 					$.each(ncs_fields,function(i,v){
 						var mid = v.substring(0, v.lastIndexOf("_") + 1);
 						var ar = mid + "area_" + v.split("_").pop();
-						var lbl = $("#" + mid).parent().parent().find("label").html() 
+						var lbl = $("#" + mid).parent().parent().find("label").find("span").html() 
 						st_vals.push({pathway:lbl, mit:+d[v], area:+d[ar]})
 						var num = +d[v]
 						if ( num > -1 ){
@@ -214,7 +221,7 @@ $(document).ready(function(){
 					});
 					$.each(ncs_dis_fields,function(i,v){
 						var mid = v.substring(0, v.lastIndexOf("_") + 1);
-						var lbl = $("#" + mid).parent().parent().find("label").html() 
+						var lbl = $("#" + mid).parent().parent().find("label").find("span").html() 
 						st_vals.push({pathway:lbl, mit:-2222, area:-2222})
 					});	
 					$.each(ncs_max_fields,function(i,v){
@@ -308,12 +315,19 @@ $(document).ready(function(){
 						)
 					);
 			});	
+			document.getElementById("wrap").addEventListener("scroll",function(){
+			   var translate = "translate(0,"+this.scrollTop+"px)";
+			   
+			   const allTh = this.querySelectorAll("th");
+			   for( let i=0; i < allTh.length; i++ ) {
+			     allTh[i].style.transform = translate;
+			   }
+			});
 
 			// State table
 			$("#stTbl").find("tbody").empty();
 			$.each(stTblData,function(i,v){
-			
-				if (v.mit == ""){
+				if (v.mit.length == 0){
 					$("#stTbl").find('tbody')
 						.append($('<tr style="text-decoration:line-through;">')
 							.append( $('<td>').append(v.pathway) )
