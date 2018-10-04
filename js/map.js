@@ -20,10 +20,10 @@ $(document).ready(function(){
 	// State map setup
 		// SVG width and height for state map
 		var stWidth = 470;
-		var stHeight = 260;
+		var stHeight = 290;
 	   	// National map project, scale, and centering
 		var stProjection = d3.geoAlbers()
-			.scale(560)
+			.scale(620)
 			.translate([stWidth / 2, stHeight / 2]);
 		// Set up natinonal map path    
 		var stPath = d3.geoPath()
@@ -232,7 +232,7 @@ $(document).ready(function(){
 					stPer = roundTo(mt/mtSum*100,0);
 					$("#stMapLegBar").animate({
 					    marginLeft: stPer + '%'
-					}, 300);
+					}, 500);
 					// Update state emmissions total
 					var et = roundTo(+d["emis_tot"]/1000000,0)
 					$("#st_emis_tot").html(et)

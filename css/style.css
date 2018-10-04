@@ -169,10 +169,10 @@ td {
 }
 .stSvg{
     box-shadow: 2px 2px 1px 0px rgba(204,204,204,0.75); border:1pt solid #ccc; background:#f4f8f8; 
-    margin-top:40px;
+    margin-top:10px;
 }
 #stChoWrap{
-    position:absolute; z-index:1000; right:12px;
+    position:absolute; z-index:1000; left:12px; top:-30px;
 }
 /*Toggle buttons*/
 #togWrap{
