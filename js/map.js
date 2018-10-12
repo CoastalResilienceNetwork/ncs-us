@@ -2,11 +2,11 @@
 $(document).ready(function(){
 	// National map setup
 		// SVG width and height for national map
-		var naWidth = 500;
-		var naHeight = 300;
+		var naWidth = 450;
+		var naHeight = 290;
 	   	// National map project, scale, and centering
 		var naProjection = d3.geoAlbers()
-			.scale(650)
+			.scale(610)
 			.translate([naWidth / 2, naHeight / 2]);
 		// Set up natinonal map path    
 		var naPath = d3.geoPath()
@@ -19,11 +19,11 @@ $(document).ready(function(){
 
 	// State map setup
 		// SVG width and height for state map
-		var stWidth = 470;
+		var stWidth = 450;
 		var stHeight = 290;
 	   	// National map project, scale, and centering
 		var stProjection = d3.geoAlbers()
-			.scale(620)
+			.scale(610)
 			.translate([stWidth / 2, stHeight / 2]);
 		// Set up natinonal map path    
 		var stPath = d3.geoPath()
@@ -36,6 +36,7 @@ $(document).ready(function(){
 		// State fips selected by chosen menu
 		var chFips = 0
 
+		 var sttracker = 0;
 	// Queue up datasets using d3 Queue
 	d3.queue()
 	    .defer(d3.json, "data/us.json") // Load US Counties
@@ -111,73 +112,117 @@ $(document).ready(function(){
 			stSvg.call(zoom)
 		// Event listeners needed inside ready function
 			// Initialize sliders
-			// $( ".slider" ).slider({ orientation:"horizontal", range:"min", min:1, max:11, value:11,
-		 //    	slide: function( event, ui ) { 
-		 //        	updatePage();
-		 //      	}
-		 //    });
-		 $( ".slider" ).slider({ orientation:"horizontal", range:"min", min:1, max:4, value:4,
-		    	slide: function( event, ui ) { 
-		        	updatePage();
-		      	}
-		    });
+		 	// $( ".slider" ).slider({ orientation:"horizontal", range:"min", min:1, max:4, value:4,
+		  //   	slide: function( event, ui ) { 
+		  //       	//updatePage();
+		  //     	}
+		  //   });
+		    var tcd = "no";
+		 	var locked = "open";
+		 	// Mitigation pathway button clicks
+		 	$(".path-btn-wrap .toggle-btn input").click(function(c){
+		 		var endval = $(this).val().split("_").pop()
+		 		var clickedVal = $(this).val();
+		 		if (locked == "closed"){
+		 			var len = $(".path-btn-wrap .toggle-btn input").length
+			 		$(".path-btn-wrap .toggle-btn input").each(function(i,v){
+			 			var val = v.value.split("_").pop()
+			 			if (endval == val){
+			 				$(v).prop("checked", true)
+			 				if (endval == 0){
+		 						$(this).parent().children().eq(1).css("background-color","#959595");
+		 					}
+			 			}else{
+			 				if (endval != 0){
+			 					$(this).parent().children().eq(1).css("background-color","#fff");
+			 				}
+			 			}
+			 		})	
+		 		}
+		 		if (locked == "open"){
+		 			if (endval == 0){
+		 				$(this).parent().children().eq(1).css("background-color","#959595");
+			 		}else{
+						$(this).parent().children().eq(1).css("background-color","#fff");
+			 		}
+		 		}
+		 		updatePage();
+		 	})
+		 	
+		 	$("#lockOpen").click(function(){
+		 		$("#lockOpen").hide()
+		 		$("#lockClosed").show()
+		 		locked = "closed";
+		 		var fc = $(".path-btn-wrap .toggle-btn input:checked")[0];
+		 		$(fc).trigger("click")
+		 	})
+		 	$("#lockClosed").click(function(){
+		 		$("#lockClosed").hide()
+		 		$("#lockOpen").show()
+		 		locked = "open";
+		 	})
+
 		    // National, State, County toggle event listener
-		    var sttracker = 0;
+		   
 		    $(".toggle-btn input[name='nsc']").click(function(){
 				$(".nsc-wrap").hide();
 				$("." + this.value).show();
 				$("#mitpath-wrap").show();
+				$(".pathway-wrap").show()
 				if (this.value == "state" && sttracker == 0){
-					$(".pathway-wrap").css("opacity", "0")
-					sttracker = 1;
+					$(".pathway-wrap").hide()
 				}
+
 			})
 			// Trigger inital click on toggle
 			$(".toggle-btn input[value='national']").trigger("click")
-			// Checkbox listeners
-			$(".check-slide-wrap input").click(function(){
-				var tid = $(this).parent().parent().find(".slider").attr("id")
-				var lbl = $(this).parent().parent().find("label");
-				if (this.checked){
-					$( "#" + tid ).slider( "enable" );
-					$(lbl).css("color","#000");
-				}else{
-					$( "#" + tid ).slider( "disable" );
-					$(lbl).css("color","#aaa");
-				}
-				updatePage();
-			}) 
 			// Chosen state menu
-			$("#chosenState").chosen({width:"125px", disable_search:false})
-				.change(function(c){
-					chFips = c.target.value;
-					$(".trans").css("opacity","100");
-					$(".pathway-wrap").css("opacity", "100")
-					updatePage();
-					var selst = $("#chosenState option:selected").text() 
-					$("#stLegText").html("<b>" + selst + "</b>" + "'s Selected<br>NCS Potential")
-				})
-			$.each(sts,function(i,v){
-				var row = "<option value='" + v.state_fips + "'>" + v.state_name +"</option>"
-				$("#chosenState").append(row);
-			})	
-			$("#chosenState").trigger("chosen:updated");
+			// $("#chosenState").chosen({width:"125px", disable_search:false})
+			// 	.change(function(c){
+			// 		sttracker = 1;
+			// 		chFips = c.target.value;
+			// 		$(".trans").show();
+			// 		$(".pathway-wrap").show()
+			// 		updatePage();
+			// 		var selst = $("#chosenState option:selected").text() 
+			// 		$("#stLegText").html("<b>" + selst + "</b>" + "'s Selected<br>NCS Potential")
+			// 	})
+			// $.each(sts,function(i,v){
+			// 	var row = "<option value='" + v.state_fips + "'>" + v.state_name +"</option>"
+			// 	$("#chosenState").append(row);
+			// })	
+			// $("#chosenState").trigger("chosen:updated");
 
 		// Symbolize states and update table
-		function updatePage(){
+		function updatePage(){ 
 			var ncs_fields = [];
 			var area_fields = [];
 			var ncs_max_fields = [];
 			var ncs_dis_fields = [];
 			// Get selected field names for mitigation and area
-			$(".check-slide-group .slider").each(function(i,v){
-				if ( !$(v).slider( "option", "disabled" ) ){
-					ncs_fields.push( $(v).attr("id") + $(v).slider("value") );
-					area_fields.push( $(v).attr("id") + "area_" + $(v).slider("value") );
-				}else{
-					ncs_dis_fields.push( $(v).attr("id") + $(v).slider("value") )
-				}	
-				ncs_max_fields.push( $(v).attr("id") + 4 );
+			// $(".check-slide-group .slider").each(function(i,v){
+			// 	if ( !$(v).slider( "option", "disabled" ) ){
+			// 		ncs_fields.push( $(v).attr("id") + $(v).slider("value") );
+			// 		area_fields.push( $(v).attr("id") + "area_" + $(v).slider("value") );
+			// 	}else{
+			// 		ncs_dis_fields.push( $(v).attr("id") + $(v).slider("value") )
+			// 	}	
+			// 	ncs_max_fields.push( $(v).attr("id") + 4 );
+			// })
+			// Get field names for mitigation and area
+			var ncst = [];
+			$(".path-btn-wrap .toggle-btn input").each(function(i,v){
+				if (v.checked){
+					var p1 = v.value.substr(0, v.value.lastIndexOf("_"));
+					var p2 = v.value.split("_").pop()
+					if (p2 == 0){
+						ncs_dis_fields.push(v.value)
+					}else{
+						ncs_fields.push(v.value)
+						area_fields.push(p1 + "_area_" + p2)
+					}
+					ncs_max_fields.push(p1 + "_4")	
+				}
 			})
 			var tbl_vals = [];
 			var map_vals = {};
@@ -206,7 +251,8 @@ $(document).ready(function(){
 				map_vals[d.state_fips] = {ncs:nval}		
 				map_leg.push(nval)	
 				// Calculate mitigation values for selected state
-				if ( $("#chosenState").val() == d.state_fips ){
+				// if ( $("#chosenState").val() == d.state_fips ){
+				if ( chFips == d.state_fips ){
 					var mt = 0;
 					var mtSum = 0;
 					$.each(ncs_fields,function(i,v){
@@ -385,7 +431,14 @@ $(document).ready(function(){
 		function clicked(d){
 			$.each(sts,function(i,v){
 				if(d.id == v.state_fips){
-					$("#chosenState").val(d.id).trigger("chosen:updated").trigger("change");
+					sttracker = 1;
+					chFips = d.id;
+					$(".trans").slideDown();
+					$(".pathway-wrap").slideDown()
+					updatePage();
+					$("#stLegText").html("<b>" + v.state_name + "</b>" + "'s Selected<br>NCS Potential")
+					$("#stateName").html(v.state_name)
+					//$("#chosenState").val(d.id).trigger("chosen:updated").trigger("change");
 				}
 			})
 		}

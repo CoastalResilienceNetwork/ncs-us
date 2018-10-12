@@ -4,18 +4,21 @@ body {
 .main-wrap{
     width:840px; padding:10px; margin:0 auto; position:relative;
 }
+#layout-wrap{
+    display:flex;
+}
 #usNumWrap{
-    height:160px;
+    height:150px; width:352px; margin:0 auto;
 } 
 #mitPotWrap{
-    align-items:center; margin-top:17px;
+    align-items:center; 
 }
 .pathway-wrap{
-    position:relative; padding:5px; border:1pt solid #bbb;
-    box-shadow:2px 2px 1px 0px rgba(204,204,204,0.75);
+    position:relative; padding:5px; border:1pt solid #bbb; margin:0 auto;
+    box-shadow:2px 2px 1px 0px rgba(204,204,204,0.75); width:340px;
 }
 .mitPotNum{
-    font-size:3em; color:#006837; margin-top:17px;
+    font-size:3em; color:#006837;
 }
 .smallLabel{
     font-size:10px;
@@ -38,6 +41,9 @@ body {
 #stLegText{
     position:relative; top:26px; left:-58px; width:110px; text-align:center;
 }
+#stTblWrap{
+    margin-left:100px; width:360px;
+}
 #stMapLeg{
     width:190px; height:12px; position:relative; margin-left:4px; margin-right:4px; border:1pt solid #999;
     background:linear-gradient(to right, #d9f0a3 0, #d9f0a3 20%, #addd8e 20%, #addd8e 40%, #78c679 40%, #78c679 60%, #31a354 60%, #31a354 80%, #006837 80%, #006837 100%);
@@ -52,7 +58,13 @@ body {
     display:flex;
 }
 .trans{
-    opacity:0;
+    /*opacity:0;*/ display:none;
+}
+#lockOpen{
+    position:absolute; right:0px; top:-3px; cursor:pointer; width:32px;
+}
+#lockClosed{
+    position:absolute; right:-2px; top:-2px; cursor:pointer; width:30px; display:none;
 }
 h1{
     color:#006837; margin-bottom:0.25;
@@ -104,7 +116,7 @@ td {
     width:400px; margin:10px auto 0 auto;
 }
 #naMap{
-	position:relative; 
+	position:relative; margin:0 auto; width:500px;
 }
 .naStates, .stStates {
 	fill:none; stroke:#fff; stroke-linejoin:round;
@@ -132,7 +144,7 @@ td {
     text-align:right; margin-top:-8px;
 }
 .check-slide-group{
-    position:relative; z-index:500; width:320px; 
+    position:relative; z-index:500; /*width:320px; */
 }
 .check-slide-wrap{
     display:flex; margin-bottom:13px;
@@ -162,24 +174,45 @@ td {
     display:none; 
 }
 #mitpath-wrap{
-    position:relative;
+    position:relative; width:355px;
+}
+#stInstrWrap{
+    display:flex; align-items:baseline; width:476px; margin:0 auto;
+}
+#stInstrWrap div{
+    flex:1; 
+} 
+#stInstr{
+    text-align:right; margin-right:16px; font-size:13px; font-weight:bold;
+}
+#stateName{
+    color:#006837; font-size:2em; margin-left:12px;
 }
 #stMap{
     text-align:center;
 }
 .stSvg{
-    box-shadow: 2px 2px 1px 0px rgba(204,204,204,0.75); border:1pt solid #ccc; background:#f4f8f8; 
-    margin-top:10px;
+    /*box-shadow: 2px 2px 1px 0px rgba(204,204,204,0.75); border:1pt solid #ccc; background:#f4f8f8; */
+   /*margin-top:10px;*/
 }
 #stChoWrap{
     position:absolute; z-index:1000; left:12px; top:-30px;
 }
+.path-btn-wrap{
+    display:flex; align-items:baseline;
+}
+.path-btn-label{
+    font-size:12px; font-weight:bold; min-width:180px; text-align:right; margin-top:2px;
+}
 /*Toggle buttons*/
 #togWrap{
-    position:absolute; right:4px; top:18px; z-index:100;
+   /* position:absolute; right:4px; top:18px; z-index:100;*/
 }
 .toggle-btn {
     padding-left:5px; margin-bottom:10px; display:flex; font-size:15px;
+}
+.btm-graph-wrap .toggle-btn{
+    font-size:12px; padding-left:14px; margin-bottom:3px;
 }
 .toggle-btn input {
     display:none;
@@ -187,6 +220,9 @@ td {
 .toggle-btn label {
     padding:5px; box-shadow:0 1px 1px rgba(16,22,26,.2); background-clip:padding-box; background-color:#fff; text-align:center;
     border:1px solid #DDD; margin:5px 5px 5px -6px; flex:1; transition:all 0.1s ease-in-out; cursor:pointer; color:#222;
+}
+.btm-graph-wrap .toggle-btn label{
+    padding:3px; 
 }
 .toggle-btn input:checked + label {
     color:#FFF; background-color:#31a354; text-shadow:0 1px 1px rgba(0,0,0,0.5);
@@ -333,3 +369,40 @@ input[type='checkbox']:checked:after {
 .chosen-wrap .chosen-drop .chosen-results {
     max-height: 380px;
 }
+/*responsive css*/
+@media only screen and (max-width:900px) {
+    #layout-wrap{
+        display:block;
+    }
+    .main-wrap{
+        width:500px;
+    }
+    .btm-graph-wrap .toggle-btn {
+        min-width:220px;
+    }
+    .pathway-wrap{
+        width:420px; margin-bottom:16px;
+    }
+    #usNumWrap{
+        display:flex !important; height:90px; margin-left:46px;
+    }
+    #netEmWrap{
+        margin-left:20px;
+    }
+    #mitpath-wrap{
+        width:100%;
+    }
+    #netEmWrap div, #mitPotWrap{
+        min-width:130px;
+    }
+    #stTblWrap{
+        margin:0 auto;
+    }
+    #wrap{
+        height:100%;
+    }
+    #st-num-slide-wrap{
+        width:330px; margin:0 auto;
+    } 
+} 
+

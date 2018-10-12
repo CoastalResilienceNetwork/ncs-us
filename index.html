@@ -18,60 +18,70 @@
 </head>
 <body>
 	<div class="main-wrap">
-		<h1>NCS Climate Mitigation</h1>
-		<div id="togWrap" class="toggle-btn" style="width:170px;">
-			<input type="radio" id="nsc1" name="nsc" value="national"/>
-			<label for="nsc1">National</label>
-			<input type="radio" id="nsc2" name="nsc" value="state"/>
-			<label for="nsc2">State</label>
-		</div>
-		<div style="display:flex;">
-			<div id="mitpath-wrap">	
-				<div id="usNumWrap" class="nsc-wrap national">
-					<div id="mitPotWrap">
-						<div style="text-align:center;">
-							<div id="mitPotNum" class="mitPotNum">299</div>
-							<div class="bigLabel">Mitigation potential</div>
-							<div class="smallLabel">Mt CO<sub>2</sub>e per year</div>
-						</div>	
-					</div>	
-					<div id="netEmWrap">
-						<div style="text-align:center; flex:1;">
-							<div class="netEmNum">6,870</div>
-							<div class="bigLabel">2014 Emissions (U.S.)</div>
-							<div class="smallLabel">Mt CO<sub>2</sub>e per year</div>
-						</div>
-						<div style="text-align:center; flex:1;">
-							<div class="netEmNum">2,043</div>
-							<div class="bigLabel">NDC Target (U.S.)</div>	
-							<div class="smallLabel">Mt CO<sub>2</sub>e per year</div>	
-						</div>
-					</div>
+		<div style="display:flex; align-items:baseline;">	
+			<h1 style="flex:2;">NCS Climate Mitigation</h1>
+			<div>	
+				<div id="togWrap" class="toggle-btn" style="width:170px;">
+					<input type="radio" id="nsc1" name="nsc" value="national"/>
+					<label for="nsc1">National</label>
+					<input type="radio" id="nsc2" name="nsc" value="state"/>
+					<label for="nsc2">State</label>
 				</div>
-				<div class="trans nsc-wrap state" style="margin-bottom:52px">
-					<div style="display:flex;">
-						<div style="text-align:center; flex:1;">
-							<div id="stMitPotNum" class="mitPotNum">299</div>
-							<div class="bigLabel">Mitigation Potential</div>
-							<div class="smallLabel">(Mt CO<sub>2</sub>e per year)</div>
+			</div>	
+		</div>	
+		<div id="layout-wrap">
+			<div id="mitpath-wrap">
+				<div class="nsc-wrap national">	
+					<div id="usNumWrap">
+						<div id="mitPotWrap">
+							<div style="text-align:center;">
+								<div id="mitPotNum" class="mitPotNum">299</div>
+								<div class="bigLabel">Mitigation potential</div>
+								<div class="smallLabel">Mt CO<sub>2</sub>e per year</div>
+							</div>	
 						</div>	
-						<div style="text-align:center; flex:1;">
-							<div id="st_emis_tot" class="mitPotNum">358</div>
-							<div class="bigLabel">2014 Emissions</div>
-							<div class="smallLabel">(Mt CO<sub>2</sub>e per year)</div>
+						<div id="netEmWrap">
+							<div style="text-align:center; flex:1;">
+								<div class="netEmNum">6,870</div>
+								<div class="bigLabel">2014 Emissions (U.S.)</div>
+								<div class="smallLabel">Mt CO<sub>2</sub>e per year</div>
+							</div>
+							<div style="text-align:center; flex:1;">
+								<div class="netEmNum">2,043</div>
+								<div class="bigLabel">NDC Target (U.S.)</div>	
+								<div class="smallLabel">Mt CO<sub>2</sub>e per year</div>	
+							</div>
+						</div>
+					</div>
+				</div>	
+				<div class="nsc-wrap state" style="margin-bottom:52px">
+					<div id="st-num-slide-wrap" class="trans">
+						<div style="display:flex;">
+							<div style="text-align:center; flex:1;">
+								<div id="stMitPotNum" class="mitPotNum">299</div>
+								<div class="bigLabel">Mitigation Potential</div>
+								<div class="smallLabel">(Mt CO<sub>2</sub>e per year)</div>
+							</div>	
+							<div style="text-align:center; flex:1;">
+								<div id="st_emis_tot" class="mitPotNum">358</div>
+								<div class="bigLabel">2014 Emissions</div>
+								<div class="smallLabel">(Mt CO<sub>2</sub>e per year)</div>
+							</div>
+						</div>	
+						<div id="stMapLegWrap">
+							<div>0</div>
+							<div id="stMapLeg">
+								<div id="stMapLegBar"><div id="stLegText">NCA Potential</div></div>
+							</div>
+							<div id="stLegMax"></div>
 						</div>
 					</div>	
-					<div id="stMapLegWrap" class="trans">
-						<div>0</div>
-						<div id="stMapLeg">
-							<div id="stMapLegBar"><div id="stLegText">NCA Potential</div></div>
-						</div>
-						<div id="stLegMax"></div>
-					</div>
 				</div>
 				<div class="pathway-wrap">
 					<h2 style="margin-top:0.25em;">Mitigation Pathways</h2>
-					<div class="slide-label-wrap">
+					<img id="lockOpen" src="./images/lockOpen.png" alt="Unlock selections">
+					<img id="lockClosed" src="./images/lockClosed.png" alt="Unlock selections">
+					<div class="slide-label-wrap" style="display:none;">
 						<div class="slide-label">
 							<div>$10</div><div>$50</div><div>$100</div><div>Max</div>
 						</div>
@@ -81,114 +91,283 @@
 					</div>
 					<div class="btm-graph-wrap">	
 						<div class="check-slide-group">	
-							<div class="check-slide-wrap">
-								<label class="form-component" for="cb0">
-									<input checked type="checkbox" id="cb0" name="cb">
-									<div class="check"></div>
-									<span class="form-text">Reforestation Potential</span>
-								</label>
-								<div class="slider-container">
-									<div id="refor_" class="slider"></div>
+							<div style="display:none;">
+								<div class="check-slide-wrap">
+									<label class="form-component" for="cb0">
+										<input checked type="checkbox" id="cb0" name="cb">
+										<div class="check"></div>
+										<span class="form-text">Reforestation Potential</span>
+									</label>
+									<div class="slider-container">
+										<div id="refor_" class="slider"></div>
+									</div>
 								</div>
-							</div>
-							<div class="check-slide-wrap">
-								<label class="form-component" for="cb1">
-									<input checked type="checkbox" id="cb1" name="cb">
-									<div class="check"></div>
-									<span class="form-text">Avoided Forest Conversion</span>
-								</label>
-								<div class="slider-container">
-									<div id="defor_" class="slider"></div>
+								<div class="check-slide-wrap">
+									<label class="form-component" for="cb1">
+										<input checked type="checkbox" id="cb1" name="cb">
+										<div class="check"></div>
+										<span class="form-text">Avoided Forest Conversion</span>
+									</label>
+									<div class="slider-container">
+										<div id="defor_" class="slider"></div>
+									</div>
 								</div>
-							</div>
-							<div class="check-slide-wrap">
-								<label class="form-component" for="cb2">
-									<input checked type="checkbox" id="cb2" name="cb">
-									<div class="check"></div>
-									<span class="form-text">Fire Management</span>
-								</label>
-								<div class="slider-container">
-									<div id="fire_" class="slider"></div>
+								<div class="check-slide-wrap">
+									<label class="form-component" for="cb2">
+										<input checked type="checkbox" id="cb2" name="cb">
+										<div class="check"></div>
+										<span class="form-text">Fire Management</span>
+									</label>
+									<div class="slider-container">
+										<div id="fire_" class="slider"></div>
+									</div>
 								</div>
-							</div>
-							<div class="check-slide-wrap">
-								<label class="form-component" for="cb3">
-									<input checked type="checkbox" id="cb3" name="cb">
-									<div class="check"></div>
-									<span class="form-text">Urban Reforestation</span>
-								</label>
-								<div class="slider-container">
-									<div id="urban_" class="slider"></div>
+								<div class="check-slide-wrap">
+									<label class="form-component" for="cb3">
+										<input checked type="checkbox" id="cb3" name="cb">
+										<div class="check"></div>
+										<span class="form-text">Urban Reforestation</span>
+									</label>
+									<div class="slider-container">
+										<div id="urban_" class="slider"></div>
+									</div>
 								</div>
-							</div>
-							<div class="check-slide-wrap">
-								<label class="form-component" for="cb4">
-									<input checked type="checkbox" id="cb4" name="cb">
-									<div class="check"></div>
-									<span class="form-text">Avoided Grassland Conversion</span>
-								</label>
-								<div class="slider-container">
-									<div id="grass_con_" class="slider"></div>
+								<div class="check-slide-wrap">
+									<label class="form-component" for="cb4">
+										<input checked type="checkbox" id="cb4" name="cb">
+										<div class="check"></div>
+										<span class="form-text">Avoided Grassland Conversion</span>
+									</label>
+									<div class="slider-container">
+										<div id="grass_con_" class="slider"></div>
+									</div>
 								</div>
-							</div>
-							<div class="check-slide-wrap">
-								<label class="form-component" for="cb5">
-									<input checked type="checkbox" id="cb5" name="cb">
-									<div class="check"></div>
-									<span class="form-text">Grassland Restoration</span>
-								</label>
-								<div class="slider-container">
-									<div id="grass_res_" class="slider"></div>
+								<div class="check-slide-wrap">
+									<label class="form-component" for="cb5">
+										<input checked type="checkbox" id="cb5" name="cb">
+										<div class="check"></div>
+										<span class="form-text">Grassland Restoration</span>
+									</label>
+									<div class="slider-container">
+										<div id="grass_res_" class="slider"></div>
+									</div>
 								</div>
-							</div>
-							<div class="check-slide-wrap">
-								<label class="form-component" for="cb6">
-									<input checked type="checkbox" id="cb6" name="cb">
-									<div class="check"></div>
-									<span class="form-text">Alley Cropping</span>
-								</label>
-								<div class="slider-container">
-									<div id="aly_crop_" class="slider"></div>
+								<div class="check-slide-wrap">
+									<label class="form-component" for="cb6">
+										<input checked type="checkbox" id="cb6" name="cb">
+										<div class="check"></div>
+										<span class="form-text">Alley Cropping</span>
+									</label>
+									<div class="slider-container">
+										<div id="aly_crop_" class="slider"></div>
+									</div>
 								</div>
-							</div>
-							<div class="check-slide-wrap">
-								<label class="form-component" for="cb7">
-									<input checked type="checkbox" id="cb7" name="cb">
-									<div class="check"></div>
-									<span class="form-text">Cover Crops</span>
-								</label>
-								<div class="slider-container">
-									<div id="cov_crop_" class="slider"></div>
+								<div class="check-slide-wrap">
+									<label class="form-component" for="cb7">
+										<input checked type="checkbox" id="cb7" name="cb">
+										<div class="check"></div>
+										<span class="form-text">Cover Crops</span>
+									</label>
+									<div class="slider-container">
+										<div id="cov_crop_" class="slider"></div>
+									</div>
 								</div>
-							</div>
-							<div class="check-slide-wrap">
-								<label class="form-component" for="cb8">
-									<input checked type="checkbox" id="cb8" name="cb">
-									<div class="check"></div>
-									<span class="form-text">Cropland Nutrient Management</span>
-								</label>
-								<div class="slider-container">
-									<div id="nut_mgt_" class="slider"></div>
+								<div class="check-slide-wrap">
+									<label class="form-component" for="cb8">
+										<input checked type="checkbox" id="cb8" name="cb">
+										<div class="check"></div>
+										<span class="form-text">Cropland Nutrient Management</span>
+									</label>
+									<div class="slider-container">
+										<div id="nut_mgt_" class="slider"></div>
+									</div>
 								</div>
-							</div>
-							<div class="check-slide-wrap">
-								<label class="form-component" for="cb9">
-									<input checked type="checkbox" id="cb9" name="cb">
-									<div class="check"></div>
-									<span class="form-text">Improved Manure Management</span>
-								</label>
-								<div class="slider-container">
-									<div id="manure_" class="slider"></div>
+								<div class="check-slide-wrap">
+									<label class="form-component" for="cb9">
+										<input checked type="checkbox" id="cb9" name="cb">
+										<div class="check"></div>
+										<span class="form-text">Improved Manure Management</span>
+									</label>
+									<div class="slider-container">
+										<div id="manure_" class="slider"></div>
+									</div>
 								</div>
-							</div>
-							<div class="check-slide-wrap">
-								<label class="form-component" for="cb10">
-									<input checked type="checkbox" id="cb10" name="cb">
-									<div class="check"></div>
-									<span class="form-text">Improved Rice Cultivation</span>
-								</label>
-								<div class="slider-container">
-									<div id="rice_" class="slider"></div>
+								<div class="check-slide-wrap">
+									<label class="form-component" for="cb10">
+										<input checked type="checkbox" id="cb10" name="cb">
+										<div class="check"></div>
+										<span class="form-text">Improved Rice Cultivation</span>
+									</label>
+									<div class="slider-container">
+										<div id="rice_" class="slider"></div>
+									</div>
+								</div>
+							</div>	
+							<div>	
+								<div class="path-btn-wrap">
+									<div class="path-btn-label">Reforestation Potential</div>
+									<div class="toggle-btn">
+										<input type="radio" id="refor0" name="refor" value="refor_0"/>
+										<label for="refor0">Off</label>
+										<input type="radio" id="refor1" name="refor" value="refor_1"/>
+										<label for="refor1">$10</label>
+										<input type="radio" id="refor2" name="refor" value="refor_2"/>
+										<label for="refor2">$50</label>
+										<input type="radio" id="refor3" name="refor" value="refor_3"/>
+										<label for="refor3">$100</label>
+										<input checked type="radio" id="refor4" name="refor" value="refor_4"/>
+										<label for="refor4">Max</label>
+									</div>	
+								</div>
+								<div class="path-btn-wrap">
+									<div class="path-btn-label">Avoided Forest Conversion</div>
+									<div class="toggle-btn">
+										<input type="radio" id="defor0" name="defor" value="defor_0"/>
+										<label for="defor0">Off</label>
+										<input type="radio" id="defor1" name="defor" value="defor_1"/>
+										<label for="defor1">$10</label>
+										<input type="radio" id="defor2" name="defor" value="defor_2"/>
+										<label for="defor2">$50</label>
+										<input type="radio" id="defor3" name="defor" value="defor_3"/>
+										<label for="defor3">$100</label>
+										<input checked type="radio" id="defor4" name="defor" value="defor_4"/>
+										<label for="defor4">Max</label>
+									</div>	
+								</div>
+								<div class="path-btn-wrap">
+									<div class="path-btn-label">Fire Management</div>
+									<div class="toggle-btn">
+										<input type="radio" id="fire0" name="fire" value="fire_0"/>
+										<label for="fire0">Off</label>
+										<input type="radio" id="fire1" name="fire" value="fire_1"/>
+										<label for="fire1">$10</label>
+										<input type="radio" id="fire2" name="fire" value="fire_2"/>
+										<label for="fire2">$50</label>
+										<input type="radio" id="fire3" name="fire" value="fire_3"/>
+										<label for="fire3">$100</label>
+										<input checked type="radio" id="fire4" name="fire" value="fire_4"/>
+										<label for="fire4">Max</label>
+									</div>	
+								</div>
+								<div class="path-btn-wrap">
+									<div class="path-btn-label">Urban Reforestation</div>
+									<div class="toggle-btn">
+										<input type="radio" id="urban0" name="urban" value="urban_0"/>
+										<label for="urban0">Off</label>
+										<input type="radio" id="urban1" name="urban" value="urban_1"/>
+										<label for="urban1">$10</label>
+										<input type="radio" id="urban2" name="urban" value="urban_2"/>
+										<label for="urban2">$50</label>
+										<input type="radio" id="urban3" name="urban" value="urban_3"/>
+										<label for="urban3">$100</label>
+										<input checked type="radio" id="urban4" name="urban" value="urban_4"/>
+										<label for="urban4">Max</label>
+									</div>	
+								</div>
+								<div class="path-btn-wrap">
+									<div class="path-btn-label">Avoided Grassland Conversion</div>
+									<div class="toggle-btn">
+										<input type="radio" id="grass_con0" name="grass_con" value="grass_con_0"/>
+										<label for="grass_con0">Off</label>
+										<input type="radio" id="grass_con1" name="grass_con" value="grass_con_1"/>
+										<label for="grass_con1">$10</label>
+										<input type="radio" id="grass_con2" name="grass_con" value="grass_con_2"/>
+										<label for="grass_con2">$50</label>
+										<input type="radio" id="grass_con3" name="grass_con" value="grass_con_3"/>
+										<label for="grass_con3">$100</label>
+										<input checked type="radio" id="grass_con4" name="grass_con" value="grass_con_4"/>
+										<label for="grass_con4">Max</label>
+									</div>	
+								</div>
+								<div class="path-btn-wrap">
+									<div class="path-btn-label">Grassland Restoration</div>
+									<div class="toggle-btn">
+										<input type="radio" id="grass_res0" name="grass_res" value="grass_res_0"/>
+										<label for="grass_res0">Off</label>
+										<input type="radio" id="grass_res1" name="grass_res" value="grass_res_1"/>
+										<label for="grass_res1">$10</label>
+										<input type="radio" id="grass_res2" name="grass_res" value="grass_res_2"/>
+										<label for="grass_res2">$50</label>
+										<input type="radio" id="grass_res3" name="grass_res" value="grass_res_3"/>
+										<label for="grass_res3">$100</label>
+										<input checked type="radio" id="grass_res4" name="grass_res" value="grass_res_4"/>
+										<label for="grass_res4">Max</label>
+									</div>	
+								</div>
+								<div class="path-btn-wrap">
+									<div class="path-btn-label">Alley Cropping</div>
+									<div class="toggle-btn">
+										<input type="radio" id="aly_crop0" name="aly_crop" value="aly_crop_0"/>
+										<label for="aly_crop0">Off</label>
+										<input type="radio" id="aly_crop1" name="aly_crop" value="aly_crop_1"/>
+										<label for="aly_crop1">$10</label>
+										<input type="radio" id="aly_crop2" name="aly_crop" value="aly_crop_2"/>
+										<label for="aly_crop2">$50</label>
+										<input type="radio" id="aly_crop3" name="aly_crop" value="aly_crop_3"/>
+										<label for="aly_crop3">$100</label>
+										<input checked type="radio" id="aly_crop4" name="aly_crop" value="aly_crop_4"/>
+										<label for="aly_crop4">Max</label>
+									</div>	
+								</div>
+								<div class="path-btn-wrap">
+									<div class="path-btn-label">Cover Crops</div>
+									<div class="toggle-btn">
+										<input type="radio" id="cov_crop0" name="cov_crop" value="cov_crop_0"/>
+										<label for="cov_crop0">Off</label>
+										<input type="radio" id="cov_crop1" name="cov_crop" value="cov_crop_1"/>
+										<label for="cov_crop1">$10</label>
+										<input type="radio" id="cov_crop2" name="cov_crop" value="cov_crop_2"/>
+										<label for="cov_crop2">$50</label>
+										<input type="radio" id="cov_crop3" name="cov_crop" value="cov_crop_3"/>
+										<label for="cov_crop3">$100</label>
+										<input checked type="radio" id="cov_crop4" name="cov_crop" value="cov_crop_4"/>
+										<label for="cov_crop4">Max</label>
+									</div>	
+								</div>
+								<div class="path-btn-wrap">
+									<div class="path-btn-label">Cropland Nutrient Management</div>
+									<div class="toggle-btn">
+										<input type="radio" id="nut_mgt0" name="nut_mgt" value="nut_mgt_0"/>
+										<label for="nut_mgt0">Off</label>
+										<input type="radio" id="nut_mgt1" name="nut_mgt" value="nut_mgt_1"/>
+										<label for="nut_mgt1">$10</label>
+										<input type="radio" id="nut_mgt2" name="nut_mgt" value="nut_mgt_2"/>
+										<label for="nut_mgt2">$50</label>
+										<input type="radio" id="nut_mgt3" name="nut_mgt" value="nut_mgt_3"/>
+										<label for="nut_mgt3">$100</label>
+										<input checked type="radio" id="nut_mgt4" name="nut_mgt" value="nut_mgt_4"/>
+										<label for="nut_mgt4">Max</label>
+									</div>	
+								</div>
+								<div class="path-btn-wrap">
+									<div class="path-btn-label">Improved Manure Management</div>
+									<div class="toggle-btn">
+										<input type="radio" id="manure0" name="manure" value="manure_0"/>
+										<label for="manure0">Off</label>
+										<input type="radio" id="manure1" name="manure" value="manure_1"/>
+										<label for="manure1">$10</label>
+										<input type="radio" id="manure2" name="manure" value="manure_2"/>
+										<label for="manure2">$50</label>
+										<input type="radio" id="manure3" name="manure" value="manure_3"/>
+										<label for="manure3">$100</label>
+										<input checked type="radio" id="manure4" name="manure" value="manure_4"/>
+										<label for="manure4">Max</label>
+									</div>	
+								</div>
+								<div class="path-btn-wrap">
+									<div class="path-btn-label">Improved Rice Cultivation</div>
+									<div class="toggle-btn">
+										<input type="radio" id="rice0" name="rice" value="rice_0"/>
+										<label for="rice0">Off</label>
+										<input type="radio" id="rice1" name="rice" value="rice_1"/>
+										<label for="rice1">$10</label>
+										<input type="radio" id="rice2" name="rice" value="rice_2"/>
+										<label for="rice2">$50</label>
+										<input type="radio" id="rice3" name="rice" value="rice_3"/>
+										<label for="rice3">$100</label>
+										<input checked type="radio" id="rice4" name="rice" value="rice_4"/>
+										<label for="rice4">Max</label>
+									</div>	
 								</div>
 							</div>
 						</div>	
@@ -197,7 +376,7 @@
 			</div>	
 			<div id="national" class="nsc-wrap national">
 				<div id="naMap"></div>
-				<div style="margin-left:100px;">
+				<div id="stTblWrap">
 					<h2>Climate Alliance States</h2>
 					<div id="wrap">
 						<table id="naTbl">
@@ -213,18 +392,19 @@
 					</div>	
 				</div>
 			</div>
-			<div id="state" style="width:520px; margin-left:10px; position:relative;" class="nsc-wrap state">
-				<div id="stChoWrap" class="chosen-wrap" style="margin-bottom:10px;">
+			<div id="state" style="width:500px; margin-left:10px; position:relative;" class="nsc-wrap state">
+				<!-- <div id="stChoWrap" class="chosen-wrap" style="margin-bottom:10px;">
 					<select data-placeholder="Select A State" id="chosenState" class="chosen">
 						<option></option>
 					</select>
-				</div>
+				</div> -->
 					
-				
-				<div>
-					<div id="stMap"></div>
-						
+				<div id="stInstrWrap">
+					<div id="stateName"></div>
+					<div id="stInstr">Click map to select state</div>
 				</div>
+				<div id="stMap"></div>
+				
 				<div>
 					<table id="stTbl" class="trans">
 						<thead>
