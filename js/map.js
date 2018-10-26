@@ -12,7 +12,7 @@ $(document).ready(function(){
 		var naPath = d3.geoPath()
 			.projection(naProjection);
 		// Create national map SVG    
-		var naSvg = d3.select("#naMap").append("svg")
+		var naSvg = d3.select("#usm-naMap").append("svg")
 			.attr("width", naWidth)
 			.attr("height", naHeight)
 			.style("margin-left","30px")  
@@ -29,7 +29,7 @@ $(document).ready(function(){
 		var stPath = d3.geoPath()
 			.projection(stProjection);
 		// Create national map SVG    
-		var stSvg = d3.select("#stMap").append("svg")
+		var stSvg = d3.select("#usm-stMap").append("svg")
 			.attr("width", stWidth)
 			.attr("height", stHeight)
 			.attr("class","stSvg")	
@@ -52,7 +52,7 @@ $(document).ready(function(){
 			// Add merged US states behind national map 
 			naSvg.append("path")
 				.datum(topojson.merge(us, us.objects.states.geometries))
-				.attr("class", "state-border")
+				.attr("class", "usm-state-border")
 				.attr("d", naPath);
 			//Container for the glow filter
 			var defs = naSvg.append("defs");
@@ -64,7 +64,7 @@ $(document).ready(function(){
 				.attr("stdDeviation","3")
 				.attr("result","coloredBlur");
 			// Apply glow filter to class
-			d3.selectAll(".state-border")
+			d3.selectAll(".usm-state-border")
 				.style("filter", "url(#glow)");  
 		
 		// National map - append a group to SVG and bind TopoJSON data elements (states)	
@@ -73,7 +73,7 @@ $(document).ready(function(){
 				.data(topojson.feature(us, us.objects.states).features) 
 				.enter().append("path")
 				.attr("d", naPath)
-				.attr("class", "naStates")
+				.attr("class", "usm-naStates")
 
 		// State map - append a group to SVG and bind TopoJSON data elements (states)	
   			var zoom = d3.zoom()
@@ -84,7 +84,7 @@ $(document).ready(function(){
   			
   			stG.append("path")
 				.datum(topojson.merge(us, us.objects.states.geometries))
-				.attr("class", "state-border1")
+				.attr("class", "usm-state-border1")
 				.attr("d", stPath);
 			//Container for the glow filter
 			var defs1 = stG.append("defs");
@@ -96,7 +96,7 @@ $(document).ready(function(){
 				.attr("stdDeviation","1")
 				.attr("result","coloredBlur");
 			// Apply glow filter to class
-			d3.selectAll(".state-border1")
+			d3.selectAll(".usm-state-border1")
 				.style("filter", "url(#glow1)");	
 
   			stG.append("g")
@@ -104,28 +104,23 @@ $(document).ready(function(){
 				.data(topojson.feature(us, us.objects.states).features) 
 				.enter().append("path")
 				.attr("d", stPath)
-				.attr("class", "stStates")
+				.attr("class", "usm-stStates")
 				.on("click", clicked)	
 				.on('mouseover', mouseOver)	
 				.on('mouseout', mouseOut)	
 			
 			stSvg.call(zoom)
+
 		// Event listeners needed inside ready function
-			// Initialize sliders
-		 	// $( ".slider" ).slider({ orientation:"horizontal", range:"min", min:1, max:4, value:4,
-		  //   	slide: function( event, ui ) { 
-		  //       	//updatePage();
-		  //     	}
-		  //   });
 		    var tcd = "no";
 		 	var locked = "open";
 		 	// Mitigation pathway button clicks
-		 	$(".path-btn-wrap .toggle-btn input").click(function(c){
+		 	$(".usm-path-btn-wrap .usm-toggle-btn input").click(function(c){
 		 		var endval = $(this).val().split("_").pop()
 		 		var clickedVal = $(this).val();
 		 		if (locked == "closed"){
-		 			var len = $(".path-btn-wrap .toggle-btn input").length
-			 		$(".path-btn-wrap .toggle-btn input").each(function(i,v){
+		 			var len = $(".usm-path-btn-wrap .usm-toggle-btn input").length
+			 		$(".usm-path-btn-wrap .usm-toggle-btn input").each(function(i,v){
 			 			var val = v.value.split("_").pop()
 			 			if (endval == val){
 			 				$(v).prop("checked", true)
@@ -149,49 +144,42 @@ $(document).ready(function(){
 		 		updatePage();
 		 	})
 		 	
-		 	$("#lockOpen").click(function(){
-		 		$("#lockOpen").hide()
-		 		$("#lockClosed").show()
+		 	$("#usm-fullExtent").click(function(){
+				stSvg.transition()
+				      .duration(750)
+				      .call( zoom.transform, d3.zoomIdentity.translate(0,0));
+				setTimeout(
+					function(){
+				    	$("#usm-fullExtent").hide()
+					}, 800);
+		 	})
+
+		 	$("#usm-lockOpen").click(function(){
+		 		$("#usm-lockOpen").hide()
+		 		$("#usm-lockClosed").show()
 		 		locked = "closed";
-		 		var fc = $(".path-btn-wrap .toggle-btn input:checked")[0];
+		 		var fc = $(".usm-path-btn-wrap .usm-toggle-btn input:checked")[0];
 		 		$(fc).trigger("click")
 		 	})
-		 	$("#lockClosed").click(function(){
-		 		$("#lockClosed").hide()
-		 		$("#lockOpen").show()
+		 	$("#usm-lockClosed").click(function(){
+		 		$("#usm-lockClosed").hide()
+		 		$("#usm-lockOpen").show()
 		 		locked = "open";
 		 	})
 
 		    // National, State, County toggle event listener
-		   
-		    $(".toggle-btn input[name='nsc']").click(function(){
-				$(".nsc-wrap").hide();
+		    $(".usm-toggle-btn input[name='nsc']").click(function(){
+				$(".usm-nsc-wrap").hide();
 				$("." + this.value).show();
-				$("#mitpath-wrap").show();
-				$(".pathway-wrap").show()
-				if (this.value == "state" && sttracker == 0){
-					$(".pathway-wrap").hide()
+				$("#usm-mitpath-wrap").show();
+				$(".usm-pathway-wrap").show()
+				if (this.value == "usm-state" && sttracker == 0){
+					$(".usm-pathway-wrap").hide()
 				}
 
 			})
 			// Trigger inital click on toggle
-			$(".toggle-btn input[value='national']").trigger("click")
-			// Chosen state menu
-			// $("#chosenState").chosen({width:"125px", disable_search:false})
-			// 	.change(function(c){
-			// 		sttracker = 1;
-			// 		chFips = c.target.value;
-			// 		$(".trans").show();
-			// 		$(".pathway-wrap").show()
-			// 		updatePage();
-			// 		var selst = $("#chosenState option:selected").text() 
-			// 		$("#stLegText").html("<b>" + selst + "</b>" + "'s Selected<br>NCS Potential")
-			// 	})
-			// $.each(sts,function(i,v){
-			// 	var row = "<option value='" + v.state_fips + "'>" + v.state_name +"</option>"
-			// 	$("#chosenState").append(row);
-			// })	
-			// $("#chosenState").trigger("chosen:updated");
+			$(".usm-toggle-btn input[value='usm-national']").trigger("click")
 
 		// Symbolize states and update table
 		function updatePage(){ 
@@ -199,19 +187,9 @@ $(document).ready(function(){
 			var area_fields = [];
 			var ncs_max_fields = [];
 			var ncs_dis_fields = [];
-			// Get selected field names for mitigation and area
-			// $(".check-slide-group .slider").each(function(i,v){
-			// 	if ( !$(v).slider( "option", "disabled" ) ){
-			// 		ncs_fields.push( $(v).attr("id") + $(v).slider("value") );
-			// 		area_fields.push( $(v).attr("id") + "area_" + $(v).slider("value") );
-			// 	}else{
-			// 		ncs_dis_fields.push( $(v).attr("id") + $(v).slider("value") )
-			// 	}	
-			// 	ncs_max_fields.push( $(v).attr("id") + 4 );
-			// })
 			// Get field names for mitigation and area
 			var ncst = [];
-			$(".path-btn-wrap .toggle-btn input").each(function(i,v){
+			$(".usm-path-btn-wrap .usm-toggle-btn input").each(function(i,v){
 				if (v.checked){
 					var p1 = v.value.substr(0, v.value.lastIndexOf("_"));
 					var p2 = v.value.split("_").pop()
@@ -251,14 +229,14 @@ $(document).ready(function(){
 				map_vals[d.state_fips] = {ncs:nval}		
 				map_leg.push(nval)	
 				// Calculate mitigation values for selected state
-				// if ( $("#chosenState").val() == d.state_fips ){
 				if ( chFips == d.state_fips ){
 					var mt = 0;
 					var mtSum = 0;
 					$.each(ncs_fields,function(i,v){
 						var mid = v.substring(0, v.lastIndexOf("_") + 1);
 						var ar = mid + "area_" + v.split("_").pop();
-						var lbl = $("#" + mid).parent().parent().find("label").find("span").html() 
+						mid = "usm-" + mid.slice(0, -1) + "0";
+						var lbl = $("#" + mid).parent().parent().find(".usm-path-btn-label").html() 
 						st_vals.push({pathway:lbl, mit:+d[v], area:+d[ar]})
 						var num = +d[v]
 						if ( num > -1 ){
@@ -267,7 +245,8 @@ $(document).ready(function(){
 					});
 					$.each(ncs_dis_fields,function(i,v){
 						var mid = v.substring(0, v.lastIndexOf("_") + 1);
-						var lbl = $("#" + mid).parent().parent().find("label").find("span").html() 
+						mid = "usm-" +mid.slice(0, -1) + "0";
+						var lbl = $("#" + mid).parent().parent().find(".usm-path-btn-label").html() 
 						st_vals.push({pathway:lbl, mit:-2222, area:-2222})
 					});	
 					$.each(ncs_max_fields,function(i,v){
@@ -276,15 +255,15 @@ $(document).ready(function(){
 						}
 					})
 					stPer = roundTo(mt/mtSum*100,0);
-					$("#stMapLegBar").animate({
+					$("#usm-stMapLegBar").animate({
 					    marginLeft: stPer + '%'
 					}, 500);
 					// Update state emmissions total
 					var et = roundTo(+d["emis_tot"]/1000000,0)
-					$("#st_emis_tot").html(et)
+					$("#usm-st_emis_tot").html(et)
 					// Update state mitigation number		
-					$("#stMitPotNum").html( roundTo(mt/1000000,0) )
-					$("#stLegMax").html( "<b>" + roundTo(mtSum/1000000,0) + "</b> (Max NCS potential)" ) 
+					$("#usm-stMitPotNum").html( roundTo(mt/1000000,0) )
+					$("#usm-stLegMax").html( "<b>" + roundTo(mtSum/1000000,0) + "</b> (Max NCS potential)" ) 
 					// Sort state table values on mitigation
 					stTblData = st_vals.sort(compareValues("mit","desc"))
 					// Update values to remove -9999 and -2222
@@ -326,29 +305,34 @@ $(document).ready(function(){
 		    // Sum of NCS mitigation numbers 
 		    var sumMit = map_leg.reduce((a, b) => a + b, 0);	
 		    // Update mitigation total element
-		    $("#mitPotNum").html( roundTo(sumMit/1000000,0) );
-			d3.selectAll('.naStates')
+		    $("#usm-mitPotNum").html( roundTo(sumMit/1000000,0) );
+			d3.selectAll('.usm-naStates')
            		// Update state colors on map with symbology created above
            		.transition()
            		.style( "fill", function(d){
            			if ( map_vals[d.id] && sumMit > 0 ){
-                    	return naColor(map_vals[d.id]["ncs"]);
+           				if (map_vals[d.id]["ncs"]/1000000 > 0.4){
+	                    	return naColor(map_vals[d.id]["ncs"]);
+                    	}else{
+                    		return "#dedede"
+                    	}
                     }else{
                     	return "#dedede" // State isn't listed in state csv data
                     }
             	}); 
 
            	// Empty national table body
-			$("#naTbl").find('tbody').empty();
+			$("#usm-naTbl").find('tbody').empty();
 			// Add national table rows and build legend into table cells with same color generator used to symbolize states
 			$.each(tbl_vals,function(i,v){ 
-				var mi = "#FFF";
-				var mip = "padding-left:4px;";
+				var mi = "#dedede";
+				var mip = "padding-left:24px;";
 				if (sumMit > 0){
-					mi = naColor(v.ncs);
-					mip = "padding-left:24px;"
+					if (v.ncs/1000000 > 0.4){
+						mi = naColor(v.ncs);
+					}	
 				}
-				$("#naTbl").find('tbody')
+				$("#usm-naTbl").find('tbody')
 					.append($('<tr>')
 						.append($('<td>')
 							.append(v.state)
@@ -361,7 +345,7 @@ $(document).ready(function(){
 						)
 					);
 			});	
-			document.getElementById("wrap").addEventListener("scroll",function(){
+			document.getElementById("usm-nat-tbl-wrap").addEventListener("scroll",function(){
 			   var translate = "translate(0,"+this.scrollTop+"px)";
 			   
 			   const allTh = this.querySelectorAll("th");
@@ -371,17 +355,17 @@ $(document).ready(function(){
 			});
 
 			// State table
-			$("#stTbl").find("tbody").empty();
+			$("#usm-stTbl").find("tbody").empty();
 			$.each(stTblData,function(i,v){
 				if (v.mit.length == 0){
-					$("#stTbl").find('tbody')
+					$("#usm-stTbl").find('tbody')
 						.append($('<tr style="text-decoration:line-through;">')
 							.append( $('<td>').append(v.pathway) )
 							.append( $('<td>').append("") )
 							.append( $('<td>').append("") )
 						);	
 				}else{
-					$("#stTbl").find('tbody')
+					$("#usm-stTbl").find('tbody')
 						.append($('<tr>')
 							.append( $('<td>').append(v.pathway) )
 							.append( $('<td>').append(v.mit) )
@@ -391,7 +375,7 @@ $(document).ready(function(){
 			})	
 
 			// State map
-			d3.selectAll('.stStates')
+			d3.selectAll('.usm-stStates')
            		.transition()
            		.style( "fill", function(d){ 
            			if (d.id == chFips){
@@ -410,7 +394,7 @@ $(document).ready(function(){
            			}
            		})
 
-			d3.selectAll('.stStates').select(function(d){
+			d3.selectAll('.usm-stStates').select(function(d){
 				if (d.id == chFips){
 
 				  	  var bounds = stPath.bounds(d),
@@ -433,14 +417,14 @@ $(document).ready(function(){
 				if(d.id == v.state_fips){
 					sttracker = 1;
 					chFips = d.id;
-					$(".trans").slideDown();
-					$(".pathway-wrap").slideDown()
+					$(".usm-trans").slideDown();
+					$(".usm-pathway-wrap").slideDown()
 					updatePage();
-					$("#stLegText").html("<b>" + v.state_name + "</b>" + "'s Selected<br>NCS Potential")
-					$("#stateName").html(v.state_name)
-					//$("#chosenState").val(d.id).trigger("chosen:updated").trigger("change");
+					$("#usm-stLegText").html("<b>" + v.state_name + "</b>" + "'s Selected<br>NCS Potential")
+					$("#usm-stateName").html(v.state_name)
 				}
 			})
+			$("#usm-fullExtent").show();
 		}
 		function mouseOver(d){
 			var cs = this;
@@ -461,6 +445,7 @@ $(document).ready(function(){
 		function zoomed() {
 		  stG.style("stroke-width", 1.5 / d3.event.transform.k + "px");
 		  stG.attr("transform", d3.event.transform); // updated for d3 v4
+		  $("#usm-fullExtent").show();
 		}
 		// Call funtion to update map and table the first time the page loads
 		updatePage();
