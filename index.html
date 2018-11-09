@@ -52,7 +52,7 @@
 								<div class="usm-smallLabel">(Million tons CO<sub>2</sub>e per year)</div>
 							</div>	
 							<div class="usm-cenf1">
-								<div id="usm-st_emis_tot" class="usm-netEmNum">358</div>
+								<div id="usm-st_emis_xlulc" class="usm-netEmNum">358</div>
 								<div class="usm-bigLabel">2014 net emissions</div>
 								<div class="usm-smallLabel">Million tons CO<sub>2</sub>e per year</div>
 							</div>
@@ -72,6 +72,8 @@
 						<div>$ per ton of CO<sub>2</sub>e</div>
 					</div>
 					<h2 class="usm-h2">Mitigation Pathways</h2>
+					<img id="usm-infoOpen" src="./images/info.png">
+					<img id="usm-infoClose" src="./images/infoClose.png">
 					<img id="usm-lockOpen" src="./images/lockOpen.png" alt="Unlock selections">
 					<img id="usm-lockClosed" src="./images/lockClosed.png" alt="Unlock selections">
 					<div class="usm-slide-label-wrap">
@@ -85,7 +87,7 @@
 					<div class="usm-btm-graph-wrap">	
 						<div class="usm-pathBtnGroup">		
 							<div class="usm-path-btn-wrap">
-								<div class="usm-path-btn-label">Reforestation Potential</div>
+								<div class="usm-path-btn-label">Reforestation</div>
 								<div class="usm-toggle-btn">
 									<input type="radio" id="usm-refor0" name="refor" value="refor_0"/>
 									<label for="usm-refor0">Off</label>
@@ -98,6 +100,9 @@
 									<input checked type="radio" id="usm-refor4" name="refor" value="refor_4"/>
 									<label for="usm-refor4">Max</label>
 								</div>	
+							</div>
+							<div class="usm-pw-desc">
+								Additional carbon sequestration in above and belowground biomass and soils gained by converting non-forest to forest.
 							</div>
 							<div class="usm-path-btn-wrap">
 								<div class="usm-path-btn-label">Avoided Forest Conversion</div>
@@ -114,6 +119,9 @@
 									<label for="usm-defor4">Max</label>
 								</div>	
 							</div>
+							<div class="usm-pw-desc">
+								Reduced emissions of CO2 by avoiding human-caused forest conversion.
+							</div>
 							<div class="usm-path-btn-wrap">
 								<div class="usm-path-btn-label">Fire Management</div>
 								<div class="usm-toggle-btn">
@@ -128,6 +136,9 @@
 									<input checked type="radio" id="usm-fire4" name="fire" value="fire_4"/>
 									<label for="usm-fire4">Max</label>
 								</div>	
+							</div>
+							<div class="usm-pw-desc">
+								Use of prescribed fire to reduce the risk of high-intensity wildfire.
 							</div>
 							<div class="usm-path-btn-wrap">
 								<div class="usm-path-btn-label">Urban Reforestation</div>
@@ -144,6 +155,9 @@
 									<label for="usm-urban4">Max</label>
 								</div>	
 							</div>
+							<div class="usm-pw-desc">
+								Carbon sequestration in aboveground and belowground biomass gained by increasing urban tree cover.
+							</div>
 							<div class="usm-path-btn-wrap">
 								<div class="usm-path-btn-label">Avoided Grassland Conversion</div>
 								<div class="usm-toggle-btn">
@@ -158,6 +172,9 @@
 									<input checked type="radio" id="usm-grass_con4" name="grass_con" value="grass_con_4"/>
 									<label for="usm-grass_con4">Max</label>
 								</div>	
+							</div>
+							<div class="usm-pw-desc">
+								Reduced emissions of CO2 from soils and root biomass avoiding conversion of grassland and shrubland to cropland.
 							</div>
 							<div class="usm-path-btn-wrap">
 								<div class="usm-path-btn-label">Grassland Restoration</div>
@@ -174,6 +191,9 @@
 									<label for="usm-grass_res4">Max</label>
 								</div>	
 							</div>
+							<div class="usm-pw-desc">
+								Additional carbon sequestration in soils and root biomass gained by restoring cropland to grassland.
+							</div>
 							<div class="usm-path-btn-wrap">
 								<div class="usm-path-btn-label">Alley Cropping</div>
 								<div class="usm-toggle-btn">
@@ -188,6 +208,9 @@
 									<input checked type="radio" id="usm-aly_crop4" name="aly_crop" value="aly_crop_4"/>
 									<label for="usm-aly_crop4">Max</label>
 								</div>	
+							</div>
+							<div class="usm-pw-desc">
+								Additional carbon sequestration gained by planting widely-spaced rows of trees within fields of annual crops.
 							</div>
 							<div class="usm-path-btn-wrap">
 								<div class="usm-path-btn-label">Cover Crops</div>
@@ -204,6 +227,9 @@
 									<label for="usm-cov_crop4">Max</label>
 								</div>	
 							</div>
+							<div class="usm-pw-desc">
+								Soil carbon sequestration gained by growing a cover crop in the fallow season between main crops.
+							</div>
 							<div class="usm-path-btn-wrap">
 								<div class="usm-path-btn-label">Cropland Nutrient Management</div>
 								<div class="usm-toggle-btn">
@@ -218,6 +244,9 @@
 									<input checked type="radio" id="usm-nut_mgt4" name="nut_mgt" value="nut_mgt_4"/>
 									<label for="usm-nut_mgt4">Max</label>
 								</div>	
+							</div>
+							<div class="usm-pw-desc">
+								Avoided nitrous oxide emissions from more efficient use of nitrogen fertilizers and fertilizer production.
 							</div>
 							<div class="usm-path-btn-wrap">
 								<div class="usm-path-btn-label">Improved Manure Management</div>
@@ -234,6 +263,9 @@
 									<label for="usm-manure4">Max</label>
 								</div>	
 							</div>
+							<div class="usm-pw-desc">
+								Avoided methane emissions from dairy and hog manure.
+							</div>
 							<div class="usm-path-btn-wrap">
 								<div class="usm-path-btn-label">Improved Rice Cultivation</div>
 								<div class="usm-toggle-btn">
@@ -249,7 +281,9 @@
 									<label for="usm-rice4">Max</label>
 								</div>	
 							</div>
-							
+							<div class="usm-pw-desc">
+								Avoided emissions of methane and nitrous oxide through improved practices in flooded rice cultivation.
+							</div>
 						</div>	
 					</div>	
 				</div>	

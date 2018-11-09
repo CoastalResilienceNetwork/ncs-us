@@ -166,6 +166,16 @@ $(document).ready(function(){
 		 		$("#usm-lockOpen").show()
 		 		locked = "open";
 		 	})
+		 	$("#usm-infoOpen").click(function(){
+		 		$("#usm-infoOpen").hide();
+		 		$("#usm-infoClose").show();
+		 		$(".usm-pw-desc").slideDown();
+		 	})
+		 	$("#usm-infoClose").click(function(){
+		 		$("#usm-infoClose").hide();
+		 		$("#usm-infoOpen").show();
+		 		$(".usm-pw-desc").slideUp();
+		 	})
 
 		    // National, State, County toggle event listener
 		    $(".usm-toggle-btn input[name='nsc']").click(function(){
@@ -259,8 +269,8 @@ $(document).ready(function(){
 					    marginLeft: stPer + '%'
 					}, 500);
 					// Update state emmissions total
-					var et = roundTo(+d["emis_tot"]/1000000,0)
-					$("#usm-st_emis_tot").html(et)
+					var et = roundTo(+d["emis_xlulc"]/1000000,0)
+					$("#usm-st_emis_xlulc").html(et)
 					// Update state mitigation number		
 					$("#usm-stMitPotNum").html( roundTo(mt/1000000,0) )
 					$("#usm-stLegMax").html( "<b>" + roundTo(mtSum/1000000,0) + "</b> (Max NCS potential)" ) 

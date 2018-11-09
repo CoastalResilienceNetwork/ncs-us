@@ -32,6 +32,9 @@
 .usm-netEmNum{
     font-size:2em; color:#006837; margin-right:10px;
 }
+.usm-pw-desc{
+    margin:-4px 0px 8px 4px; color:#006837; display:none;
+}
 #usm-stMapLegWrap{
     margin-top:20px; display:flex; margin-left:20px;
 }
@@ -71,6 +74,12 @@
 }
 #usm-lockClosed{
     position:absolute; right:-2px; top:-2px; cursor:pointer; width:30px; display:none;
+}
+#usm-infoOpen, #usm-infoClose{
+    position:absolute; top:9px; left:161px; cursor:pointer; z-index:1000;
+}
+#usm-infoClose{
+    display:none;
 }
 #usm-ncstitle{
     color:#006837; margin-bottom:0.25; flex:2;
