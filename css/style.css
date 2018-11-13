@@ -1,6 +1,12 @@
 .usm-body {
 	padding:0; margin:0; font-size:11px; font-family:'Lato', sans-serif; 
 }
+.usm-intro-wrap{
+    color:#343A40; width:880px; font-size:1rem; margin:0 auto;
+}
+#usm-intro-header{
+    text-align:center; font-size:1.3rem;
+}
 .usm-main-wrap{
     width:840px; padding:10px; margin:0 auto; position:relative;
 }
@@ -81,7 +87,7 @@
 #usm-infoClose{
     display:none;
 }
-#usm-ncstitle{
+.usm-ncstitle{
     color:#006837; margin-bottom:0.25; flex:2;
 }
 .usm-h2{
@@ -215,7 +221,7 @@
     #usm-ncstitle{
         max-width:250px; margin-left:36px;
     }
-    .usm-main-wrap{
+    .usm-main-wrap, .usm-intro-wrap{
         width:500px;
     }
     .usm-btm-graph-wrap .usm-toggle-btn {
