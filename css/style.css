@@ -50,6 +50,9 @@
 #usm-stLegText{
     position:relative; top:26px; left:-58px; width:110px; text-align:center;
 }
+#usm-naTbl{
+    width:360px;
+}
 #usm-stTblWrap{
     margin-left:100px; width:360px; margin-top:10px;
 }
@@ -222,13 +225,22 @@
         max-width:250px; margin-left:36px;
     }
     .usm-main-wrap, .usm-intro-wrap{
-        width:500px;
+        width:100%;
+    }
+    .usm-intro-wrap p {
+        margin-left:10px;
+    }
+    .usm-topWrap{
+        display:block; margin-bottom:10px;
+    }
+    #usm-togWrap{
+        margin:0 auto;
     }
     .usm-btm-graph-wrap .usm-toggle-btn {
-        min-width:220px;
+        max-width:300px;
     }
     .usm-pathway-wrap{
-        width:420px; margin-bottom:16px;
+        width:300px; margin-bottom:16px;
     }
     #usm-usNumWrap{
         height:90px; 
@@ -249,16 +261,46 @@
         margin:0 auto;
     }
     #usm-nat-tbl-wrap{
-        height:100%;
+        height:100%; width:300px; margin-left:10px;
     }
     #usm-st-num-slide-wrap{
-        width:330px; margin:0 auto;
+        width:300px; margin:0 auto;
     } 
     #usm-state{
         margin-left:0;
     }
     #usm-stMapLegWrap{
         margin-left:0px;
+    }
+    .usm-path-btn-wrap{
+        display:block;
+    }
+    .usm-path-btn-label{
+        margin-top:5px; text-align:left; width:100%;
+    }
+    .usm-btm-graph-wrap{
+        margin-top:20px;
+    }
+    #usm-mar-abate-cost-label{
+        left:110px; top:34px;
+    }
+    #usm-naMap, #usm-stMap, #usm-state, #usm-stInstrWrap, #usm-stTbl, #usm-naTbl{
+        width:100%; 
+    }
+    #usm-naTbl{
+        margin:10px auto 0 auto;
+    }
+    #usm-naSvg{
+        margin-left:0px !important;
+    }
+    #usm-usNumWrap{
+        width:270px;
+    }
+    #usm-infoOpen, #usm-infoClose{
+        left:165px;
+    }
+    #usm-pwth{
+        min-width:80px !important;
     }
 } 
 

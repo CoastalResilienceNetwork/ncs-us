@@ -13,8 +13,10 @@ $(document).ready(function(){
 			.projection(naProjection);
 		// Create national map SVG    
 		var naSvg = d3.select("#usm-naMap").append("svg")
-			.attr("width", naWidth)
-			.attr("height", naHeight)
+			.attr("id","usm-naSvg")
+			.attr("width", "100%")
+			.attr("height", "100%")
+			.attr("viewBox", "0 0 450 290")
 			.style("margin-left","30px")  
 
 	// State map setup
@@ -30,8 +32,9 @@ $(document).ready(function(){
 			.projection(stProjection);
 		// Create national map SVG    
 		var stSvg = d3.select("#usm-stMap").append("svg")
-			.attr("width", stWidth)
-			.attr("height", stHeight)
+			.attr("width", "100%")
+			.attr("height", "100%")
+			.attr("viewBox", "0 0 450 290")
 			.attr("class","stSvg")	
 		// State fips selected by chosen menu
 		var chFips = 0
