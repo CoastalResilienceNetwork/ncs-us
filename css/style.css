@@ -234,10 +234,10 @@
         margin:0 auto;
     }
     .usm-btm-graph-wrap .usm-toggle-btn {
-        max-width:300px;
+        max-width:280px;
     }
     .usm-pathway-wrap{
-        width:300px; margin-bottom:16px;
+        width:280px; margin-bottom:16px;
     }
     #usm-usNumWrap{
         height:90px; 
@@ -258,10 +258,10 @@
         margin:0 auto;
     }
     #usm-nat-tbl-wrap{
-        height:100%; width:300px; margin-left:10px;
+        height:100%; width:280px; margin-left:10px;
     }
     #usm-st-num-slide-wrap{
-        width:300px; margin:0 auto;
+        width:280px; margin:0 auto;
     } 
     #usm-state{
         margin-left:0;
@@ -281,7 +281,10 @@
     #usm-mar-abate-cost-label{
         left:110px; top:34px;
     }
-    #usm-naMap, #usm-stMap, #usm-state, #usm-stInstrWrap, #usm-stTbl{
+    #usm-naMap, #usm-stMap{
+        width:90%;
+    }
+    #usm-state, #usm-stInstrWrap, #usm-stTbl{
         width:100%; 
     }
     #usm-naSvg{
@@ -295,6 +298,9 @@
     }
     #usm-pwth{
         min-width:80px !important;
+    }
+    #usm-stLegText{
+        left:-40px;
     }
 } 
 
