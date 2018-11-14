@@ -50,9 +50,6 @@
 #usm-stLegText{
     position:relative; top:26px; left:-58px; width:110px; text-align:center;
 }
-#usm-naTbl{
-    width:360px;
-}
 #usm-stTblWrap{
     margin-left:100px; width:360px; margin-top:10px;
 }
@@ -284,11 +281,8 @@
     #usm-mar-abate-cost-label{
         left:110px; top:34px;
     }
-    #usm-naMap, #usm-stMap, #usm-state, #usm-stInstrWrap, #usm-stTbl, #usm-naTbl{
+    #usm-naMap, #usm-stMap, #usm-state, #usm-stInstrWrap, #usm-stTbl{
         width:100%; 
-    }
-    #usm-naTbl{
-        margin:10px auto 0 auto;
     }
     #usm-naSvg{
         margin-left:0px !important;
